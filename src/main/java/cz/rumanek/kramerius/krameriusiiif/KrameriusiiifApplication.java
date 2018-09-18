@@ -52,7 +52,7 @@ public class KrameriusiiifApplication {
                     canvas.setHeight(info.getHeight());
                     canvas.setLabel(new PropertyValue(doc.getLabel()));
 
-                    StringBuffer requestURL = new StringBuffer("http://kramerius.mzk.cz/search/iiif/");
+                    StringBuffer requestURL = new StringBuffer("https://kramerius.mzk.cz/search/iiif/");
                     canvas.addIIIFImage(requestURL.append(doc.getPid()).toString(), ImageApiProfile.LEVEL_ONE);
                     return canvas;
                 } catch (HttpServerErrorException e) {
