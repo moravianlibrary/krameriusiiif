@@ -1,4 +1,4 @@
-package cz.rumanek.kramerius.krameriusiiif.dto;
+package cz.rumanek.kramerius.krameriusiiif.entity;
 
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.Id;

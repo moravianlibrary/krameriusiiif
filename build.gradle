@@ -29,5 +29,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jersey')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('de.digitalcollections.iiif:iiif-apis:0.3.3')
+	compile('org.modelmapper:modelmapper:2.2.0')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

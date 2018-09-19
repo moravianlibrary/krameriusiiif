@@ -1,7 +1,7 @@
 package cz.rumanek.kramerius.krameriusiiif;
 
-import cz.rumanek.kramerius.krameriusiiif.dto.Info;
-import cz.rumanek.kramerius.krameriusiiif.dto.KDocument;
+import cz.rumanek.kramerius.krameriusiiif.entity.Info;
+import cz.rumanek.kramerius.krameriusiiif.entity.KDocument;
 import cz.rumanek.kramerius.krameriusiiif.service.DocumentService;
 import java.util.Optional;
 import javax.inject.Inject;
@@ -43,13 +43,12 @@ public class KrameriusiiifApplication {
             Sequence sequence = new Sequence(null);
 
 
-            documentService.findByParentPid("uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23").limit(5).map(doc -> {
+            documentService.findByParentPid("uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23").map(doc -> {
                 try {
-                    RestTemplate restTemplate = new RestTemplate();
-                    Info info = restTemplate.getForObject("https://kramerius.mzk.cz/search/iiif/" + doc.getPid() + "/info.json", Info.class);
+
                     Canvas canvas = new Canvas("http://localhost/canvas/" + doc.getPid());
-                    canvas.setWidth(info.getWidth());
-                    canvas.setHeight(info.getHeight());
+                    canvas.setWidth(doc.getWidth());
+                    canvas.setHeight(doc.getHeight());
                     canvas.setLabel(new PropertyValue(doc.getLabel()));
 
                     StringBuffer requestURL = new StringBuffer("https://kramerius.mzk.cz/search/iiif/");

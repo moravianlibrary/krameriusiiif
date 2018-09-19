@@ -1,6 +1,6 @@
 package cz.rumanek.kramerius.krameriusiiif.dao;
 
-import cz.rumanek.kramerius.krameriusiiif.dto.KDocument;
+import cz.rumanek.kramerius.krameriusiiif.entity.KDocument;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

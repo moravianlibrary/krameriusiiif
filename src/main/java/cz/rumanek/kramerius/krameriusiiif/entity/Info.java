@@ -1,4 +1,4 @@
-package cz.rumanek.kramerius.krameriusiiif.dto;
+package cz.rumanek.kramerius.krameriusiiif.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
