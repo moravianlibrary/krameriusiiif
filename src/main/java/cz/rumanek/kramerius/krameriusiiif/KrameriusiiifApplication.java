@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import de.digitalcollections.iiif.model.PropertyValue;
 import de.digitalcollections.iiif.model.image.ImageApiProfile;
 import de.digitalcollections.iiif.model.sharedcanvas.Canvas;
+import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import de.digitalcollections.iiif.model.sharedcanvas.Sequence;
 import org.springframework.boot.SpringApplication;
@@ -30,9 +31,19 @@ public class KrameriusiiifApplication {
     }
 
     @RequestMapping("/")
-    public Manifest index(HttpServletRequest request) {
+    public Collection collection(HttpServletRequest request) {
+        Collection collection = new Collection(request.getRequestURL().toString());
+        collection.setLabel(new PropertyValue("test kolekce"));
 
-        //TODO-MR https://kramerius.mzk.cz/search/iiif/uuid:679942e7-1316-4ecc-a0ca-50560986b449/full/full/0/default.jpg
+        Manifest manifest = new Manifest(request.getRequestURL().toString()+"manifest");
+        manifest.setLabel(new PropertyValue("test manifest"));
+
+        collection.addManifest(manifest);
+        return collection;
+    }
+
+    @RequestMapping("manifest")
+    public Manifest manifest(HttpServletRequest request) {
         String pid = "uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23";
 
         Optional<KDocument> document = documentService.findByPid(pid);
