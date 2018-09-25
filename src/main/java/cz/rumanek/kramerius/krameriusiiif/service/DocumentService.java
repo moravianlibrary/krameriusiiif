@@ -11,16 +11,12 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Spliterator;
 import java.util.Spliterators;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import javax.inject.Inject;
-import org.glassfish.hk2.classmodel.reflect.util.LinkedQueue;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -41,18 +37,19 @@ public class DocumentService {
 
     public Stream<DocumentDTO> findByParentPid(String parentPid) {
 
-        Supplier<DocumentDTO> childrenSupplier = new Supplier<DocumentDTO>() {
+
+        long count = repository.countByParentPid(parentPid);
+        return StreamSupport.stream(new Spliterators.AbstractSpliterator<DocumentDTO>(count, Spliterator.SIZED) {
             int i = 0;
-            long count = repository.countByParentPid(parentPid);
             final int PAGE_SIZE = 10;
             private Queue<DocumentDTO> queue = new LinkedBlockingQueue<>();
 
             @Override
-            public synchronized DocumentDTO get() {
-                if (queue.size() <= PAGE_SIZE/2 && i < count) {
+            public synchronized boolean tryAdvance(Consumer<? super DocumentDTO> action) {
+                if (queue.size() <= PAGE_SIZE / 2) {
                     List<KDocument> kDocumentList = repository.findByParentPid(parentPid, PageRequest.of(i++, 10)).getContent();
                     List<DocumentDTO> documentDTOList = kDocumentList.stream()
-                            .parallel().map(entity -> {
+                            .parallel().filter(document -> !document.getPid().equals(parentPid)).map(entity -> {
                                 Info info = imageRepository.get(entity.getPid());
                                 DocumentDTO dto = modelMapper.map(entity, DocumentDTO.class);
                                 if (info != null) {
@@ -64,23 +61,15 @@ public class DocumentService {
                             .collect(Collectors.toList());
                     queue.addAll(documentDTOList);
                 }
-
-                return queue.poll();
+                DocumentDTO doc = queue.poll();
+                if (doc != null) {
+                    action.accept(queue.poll());
+                    return true;
+                } else {
+                    return false;
+                }
             }
-        };
-
-        long count = repository.countByParentPid(parentPid);
-        return StreamSupport.stream(new Spliterators.AbstractSpliterator<DocumentDTO>(count, Spliterator.SIZED) {
-            long remaining=count;
-
-            @Override
-            public boolean tryAdvance(Consumer<? super DocumentDTO> action) {
-                if(remaining<=0) return false;
-                remaining--;
-                action.accept(childrenSupplier.get());
-                return true;
-            }
-        }, false).filter(document -> !document.getPid().equals(parentPid));
+        }, false);
     }
 
     public Optional<KDocument> findByPid(String pid) {
