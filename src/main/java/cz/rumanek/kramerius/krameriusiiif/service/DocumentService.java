@@ -47,9 +47,11 @@ public class DocumentService {
             @Override
             public synchronized boolean tryAdvance(Consumer<? super DocumentDTO> action) {
                 if (queue.size() <= PAGE_SIZE / 2) {
-                    List<KDocument> kDocumentList = repository.findByParentPid(parentPid, PageRequest.of(i++, 10)).getContent();
+                    List<KDocument> kDocumentList = repository.findByParentPid(parentPid, PageRequest.of(i++, PAGE_SIZE)).getContent();
                     List<DocumentDTO> documentDTOList = kDocumentList.stream()
-                            .parallel().filter(document -> !document.getPid().equals(parentPid)).map(entity -> {
+                            .parallel()
+                            .filter(document -> !document.getPid().equals(parentPid))
+                            .map(entity -> {
                                 Info info = imageRepository.get(entity.getPid());
                                 DocumentDTO dto = modelMapper.map(entity, DocumentDTO.class);
                                 if (info != null) {

@@ -14,6 +14,7 @@ import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import de.digitalcollections.iiif.model.sharedcanvas.Sequence;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpServerErrorException;
@@ -35,16 +36,15 @@ public class KrameriusiiifApplication {
         Collection collection = new Collection(request.getRequestURL().toString());
         collection.setLabel(new PropertyValue("test kolekce"));
 
-        Manifest manifest = new Manifest(request.getRequestURL().toString()+"manifest");
+        Manifest manifest = new Manifest(request.getRequestURL().toString()+"manifest/uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23");
         manifest.setLabel(new PropertyValue("test manifest"));
 
         collection.addManifest(manifest);
         return collection;
     }
 
-    @RequestMapping("manifest")
-    public Manifest manifest(HttpServletRequest request) {
-        String pid = "uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23";
+    @RequestMapping("manifest/{uuid}")
+    public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
 
         Optional<KDocument> document = documentService.findByPid(pid);
 
