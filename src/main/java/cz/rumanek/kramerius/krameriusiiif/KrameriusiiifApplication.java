@@ -36,14 +36,14 @@ public class KrameriusiiifApplication {
         Collection collection = new Collection(request.getRequestURL().toString());
         collection.setLabel(new PropertyValue("test kolekce"));
 
-        Manifest manifest = new Manifest(request.getRequestURL().toString()+"manifest/uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23");
+        Manifest manifest = new Manifest(request.getRequestURL().toString()+"manifest/uuid:6203552b-922b-425b-845a-2a7e1ee04c6c");
         manifest.setLabel(new PropertyValue("test manifest"));
 
         collection.addManifest(manifest);
         return collection;
     }
 
-    @RequestMapping("manifest/{uuid}")
+    @RequestMapping("manifest/{pid}")
     public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
 
         Optional<KDocument> document = documentService.findByPid(pid);
@@ -54,7 +54,7 @@ public class KrameriusiiifApplication {
             Sequence sequence = new Sequence(null);
 
 
-            documentService.findByParentPid("uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23").map(doc -> {
+            documentService.findByParentPid(pid).map(doc -> {
                 try {
 
                     Canvas canvas = new Canvas("http://localhost/canvas/" + doc.getPid());

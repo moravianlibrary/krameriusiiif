@@ -1,22 +1,25 @@
 package cz.rumanek.kramerius.krameriusiiif;
 
+import javax.inject.Singleton;
 import de.digitalcollections.iiif.model.jackson.IiifObjectMapper;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrRequest;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.impl.XMLResponseParser;
 import org.apache.solr.client.solrj.request.RequestWriter;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.repository.config.EnableSolrRepositories;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableSolrRepositories(
         basePackages = "cz.rumanek.kramerius.krameriusiiif")
 @ComponentScan
-public class SolrConfiguration {
+public class IiifConfigurtaion {
 
     @Bean
     public SolrClient solrClient() {
@@ -45,5 +48,11 @@ public class SolrConfiguration {
     @Bean
     public IiifObjectMapper iiifObjectMapper() {
         return new IiifObjectMapper();
+    }
+
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        // Do any additional configuration here
+        return builder.build();
     }
 }

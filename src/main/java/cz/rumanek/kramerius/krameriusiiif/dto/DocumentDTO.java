@@ -1,10 +1,14 @@
 package cz.rumanek.kramerius.krameriusiiif.dto;
 
+import cz.rumanek.kramerius.krameriusiiif.entity.Info;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 public class DocumentDTO {
     private String pid;
     private String label;
-    private Integer height;
-    private Integer width;
+
+    public Future<Info> info;
 
     public String getPid() {
         return pid;
@@ -23,18 +27,23 @@ public class DocumentDTO {
     }
 
     public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
+        try {
+            return info.get().getHeight();
+        } catch (InterruptedException | ExecutionException e) {
+            return null;
+        }
     }
 
     public Integer getWidth() {
-        return width;
+        try {
+            return info.get().getWidth();
+        } catch (InterruptedException | ExecutionException e) {
+            return null;
+        }
     }
 
-    public void setWidth(Integer width) {
-        this.width = width;
+    public void setInfo(Future<Info> info) {
+        this.info = info;
     }
+
 }

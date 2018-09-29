@@ -4,13 +4,14 @@ import cz.rumanek.kramerius.krameriusiiif.dao.DocumentRepository;
 import cz.rumanek.kramerius.krameriusiiif.dao.ImageInfoRepository;
 import cz.rumanek.kramerius.krameriusiiif.dao.ImageInfoRepositoryImpl;
 import cz.rumanek.kramerius.krameriusiiif.dto.DocumentDTO;
-import cz.rumanek.kramerius.krameriusiiif.entity.Info;
 import cz.rumanek.kramerius.krameriusiiif.entity.KDocument;
 import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.Spliterator;
 import java.util.Spliterators;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -26,14 +27,17 @@ public class DocumentService {
 
     private final DocumentRepository repository;
 
-    private final ImageInfoRepository imageRepository = new ImageInfoRepositoryImpl();
+    private final ImageInfoRepository imageRepository;
 
     private ModelMapper modelMapper = new ModelMapper();
 
     @Inject
-    public DocumentService(DocumentRepository repository) {
+    public DocumentService(DocumentRepository repository, ImageInfoRepository imageInfoRepository) {
         this.repository = repository;
+        this.imageRepository = imageInfoRepository;
     }
+
+    ExecutorService executor = Executors.newFixedThreadPool(20);
 
     public Stream<DocumentDTO> findByParentPid(String parentPid) {
 
@@ -41,7 +45,7 @@ public class DocumentService {
         long count = repository.countByParentPid(parentPid);
         return StreamSupport.stream(new Spliterators.AbstractSpliterator<DocumentDTO>(count, Spliterator.SIZED) {
             int i = 0;
-            final int PAGE_SIZE = 10;
+            final int PAGE_SIZE = 50;
             private Queue<DocumentDTO> queue = new LinkedBlockingQueue<>();
 
             @Override
@@ -52,12 +56,9 @@ public class DocumentService {
                             .parallel()
                             .filter(document -> !document.getPid().equals(parentPid))
                             .map(entity -> {
-                                Info info = imageRepository.get(entity.getPid());
+                                //Info info = imageRepository.get(entity.getPid());
                                 DocumentDTO dto = modelMapper.map(entity, DocumentDTO.class);
-                                if (info != null) {
-                                    dto.setWidth(info.getWidth());
-                                    dto.setHeight(info.getHeight());
-                                }
+                                dto.setInfo(executor.submit(() -> imageRepository.get(entity.getPid())));
                                 return dto;
                             })
                             .collect(Collectors.toList());
@@ -65,7 +66,7 @@ public class DocumentService {
                 }
                 DocumentDTO doc = queue.poll();
                 if (doc != null) {
-                    action.accept(queue.poll());
+                    action.accept(doc);
                     return true;
                 } else {
                     return false;
