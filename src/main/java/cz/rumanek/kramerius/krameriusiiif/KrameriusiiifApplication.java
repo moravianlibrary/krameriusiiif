@@ -1,7 +1,6 @@
 package cz.rumanek.kramerius.krameriusiiif;
 
-import cz.rumanek.kramerius.krameriusiiif.entity.Info;
-import cz.rumanek.kramerius.krameriusiiif.entity.KDocument;
+import cz.rumanek.kramerius.krameriusiiif.dto.DocumentDTO;
 import cz.rumanek.kramerius.krameriusiiif.service.DocumentService;
 import java.util.Optional;
 import javax.inject.Inject;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @RestController
@@ -46,7 +44,7 @@ public class KrameriusiiifApplication {
     @RequestMapping("manifest/{pid}")
     public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
 
-        Optional<KDocument> document = documentService.findByPid(pid);
+        Optional<DocumentDTO> document = documentService.findByPid(pid);
 
         if (document.isPresent()) {
             Manifest manifest = new Manifest(request.getRequestURL().toString());
@@ -56,8 +54,7 @@ public class KrameriusiiifApplication {
 
             documentService.findByParentPid(pid).map(doc -> {
                 try {
-
-                    Canvas canvas = new Canvas("http://localhost/canvas/" + doc.getPid());
+                    Canvas canvas = new Canvas(getBaseUrl(request) + "canvas/" + doc.getPid());
                     canvas.setWidth(doc.getWidth());
                     canvas.setHeight(doc.getHeight());
                     canvas.setLabel(new PropertyValue(doc.getLabel()));
@@ -75,6 +72,27 @@ public class KrameriusiiifApplication {
         } else {
             return null;
         }
+    }
+
+    @RequestMapping("canvas/{pid}")
+    public Canvas canvas(HttpServletRequest request, @PathVariable String pid) {
+        DocumentDTO doc = documentService.findByPid(pid).get();
+
+        Canvas canvas = new Canvas(getBaseUrl(request) + "canvas/" + doc.getPid());
+        canvas.setWidth(doc.getWidth());
+        canvas.setHeight(doc.getHeight());
+        canvas.setLabel(new PropertyValue(doc.getLabel()));
+
+        StringBuffer requestURL = new StringBuffer("https://kramerius.mzk.cz/search/iiif/");
+        canvas.addIIIFImage(requestURL.append(doc.getPid()).toString(), ImageApiProfile.LEVEL_ONE);
+        return canvas;
+    }
+
+    private String getBaseUrl(HttpServletRequest request) {
+        String serverName = request.getServerName();
+        int portNumber = request.getServerPort();
+        String contextPath = request.getContextPath();
+        return "http://" + serverName + ":" +portNumber + contextPath + "/";
     }
 
     public static void main(String[] args) {

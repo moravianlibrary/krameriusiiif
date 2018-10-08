@@ -3,6 +3,7 @@ package cz.rumanek.kramerius.krameriusiiif.service;
 import cz.rumanek.kramerius.krameriusiiif.dao.DocumentRepository;
 import cz.rumanek.kramerius.krameriusiiif.dao.ImageInfoRepository;
 import cz.rumanek.kramerius.krameriusiiif.dto.DocumentDTO;
+import cz.rumanek.kramerius.krameriusiiif.entity.Info;
 import cz.rumanek.kramerius.krameriusiiif.entity.KDocument;
 import java.util.Comparator;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Spliterator;
 import java.util.Spliterators;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -95,7 +97,20 @@ public class DocumentService {
         }, false);
     }
 
-    public Optional<KDocument> findByPid(String pid) {
-        return repository.findByPid(pid);
+    public Optional<DocumentDTO> findByPid(String pid) {
+        Optional<KDocument> doc = repository.findByPid(pid);
+        if (doc.isPresent()) {
+            Info info = imageRepository.get(doc.get().getPid());
+            DocumentDTO dto = modelMapper.map(doc.get(), DocumentDTO.class);
+            if (info != null) {
+                CompletableFuture<Info> futureInfo = new CompletableFuture<>();
+                futureInfo.complete(info);
+                dto.setInfo(futureInfo);
+            }
+
+            return Optional.of(dto);
+        } else {
+            return Optional.empty();
+        }
     }
 }
