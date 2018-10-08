@@ -34,14 +34,14 @@ public class KrameriusiiifApplication {
         Collection collection = new Collection(request.getRequestURL().toString());
         collection.setLabel(new PropertyValue("test kolekce"));
 
-        Manifest manifest = new Manifest(request.getRequestURL().toString()+"manifest/uuid:6203552b-922b-425b-845a-2a7e1ee04c6c");
+        Manifest manifest = new Manifest(request.getRequestURL().toString()+"uuid:6203552b-922b-425b-845a-2a7e1ee04c6c/manifest");
         manifest.setLabel(new PropertyValue("test manifest"));
 
         collection.addManifest(manifest);
         return collection;
     }
 
-    @RequestMapping("manifest/{pid}")
+    @RequestMapping("{pid}/manifest")
     public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
 
         Optional<DocumentDTO> document = documentService.findByPid(pid);
@@ -54,7 +54,7 @@ public class KrameriusiiifApplication {
 
             documentService.findByParentPid(pid).map(doc -> {
                 try {
-                    Canvas canvas = new Canvas(getBaseUrl(request) + "canvas/" + doc.getPid());
+                    Canvas canvas = new Canvas(getBaseUrl(request) + doc.getPid() + "/canvas");
                     canvas.setWidth(doc.getWidth());
                     canvas.setHeight(doc.getHeight());
                     canvas.setLabel(new PropertyValue(doc.getLabel()));
@@ -74,11 +74,11 @@ public class KrameriusiiifApplication {
         }
     }
 
-    @RequestMapping("canvas/{pid}")
+    @RequestMapping("{pid}/canvas")
     public Canvas canvas(HttpServletRequest request, @PathVariable String pid) {
         DocumentDTO doc = documentService.findByPid(pid).get();
 
-        Canvas canvas = new Canvas(getBaseUrl(request) + "canvas/" + doc.getPid());
+        Canvas canvas = new Canvas(getBaseUrl(request) + doc.getPid() + "/canvas");
         canvas.setWidth(doc.getWidth());
         canvas.setHeight(doc.getHeight());
         canvas.setLabel(new PropertyValue(doc.getLabel()));
