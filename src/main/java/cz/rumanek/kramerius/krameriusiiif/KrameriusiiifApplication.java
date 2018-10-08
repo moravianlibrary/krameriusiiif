@@ -92,7 +92,7 @@ public class KrameriusiiifApplication {
         String serverName = request.getServerName();
         int portNumber = request.getServerPort();
         String contextPath = request.getContextPath();
-        return "http://" + serverName + ":" +portNumber + contextPath + "/";
+        return request.getScheme() + "://" + serverName + ":" +portNumber + contextPath + "/";
     }
 
     public static void main(String[] args) {
