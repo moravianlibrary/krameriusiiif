@@ -1,5 +1,7 @@
 package cz.rumanek.kramerius.krameriusiiif.entity;
 
+import java.util.Collections;
+import java.util.List;
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.solr.core.mapping.Indexed;
@@ -18,6 +20,9 @@ public class KDocument {
     @Field("dc.title")
     private String label;
 
+    @Field("rels_ext_index")
+    private List<Integer> relsIndex;
+
     public String getPid() {
         return pid;
     }
@@ -31,5 +36,9 @@ public class KDocument {
         return "KDocument{" +
                 "pid='" + pid + '\'' +
                 '}';
+    }
+
+    public List<Integer> getRelsIndex() {
+        return Collections.unmodifiableList(relsIndex);
     }
 }
