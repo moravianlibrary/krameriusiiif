@@ -20,6 +20,9 @@ public class KDocument {
     @Field("dc.title")
     private String label;
 
+    @Field("fedora.model")
+    private String model;
+
     @Field("rels_ext_index")
     private List<Integer> relsIndex;
 
@@ -29,6 +32,10 @@ public class KDocument {
 
     public String getLabel() {
         return label;
+    }
+
+    public String getModel() {
+        return model;
     }
 
     @Override
