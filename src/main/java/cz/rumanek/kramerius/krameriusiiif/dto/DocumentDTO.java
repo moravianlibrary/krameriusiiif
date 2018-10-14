@@ -7,6 +7,7 @@ import java.util.concurrent.Future;
 public class DocumentDTO {
     private String pid;
     private String label;
+    private String model;
 
     public Future<Info> info;
 
@@ -24,6 +25,14 @@ public class DocumentDTO {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public Integer getHeight() {
