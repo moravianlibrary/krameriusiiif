@@ -1,0 +1,6 @@
+version: "2"
+services:
+  krameriusinit:
+    image: martinrumanek/krameriusiiif
+    ports:
+      - "8080:8080"

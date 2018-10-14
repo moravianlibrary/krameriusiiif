@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+# Source code provided to S2I is at ${HOME}
+if [[ "$1" == "-h" ]]; then
+	exec /usr/libexec/s2i/usage
+fi
+
+export GRADLE_USER_HOME=${HOME}/.gradle
+
+LOCAL_SOURCE_DIR=/tmp/src
+
+
+pushd $LOCAL_SOURCE_DIR &> /dev/null
+
+gradle --no-daemon :clean :build

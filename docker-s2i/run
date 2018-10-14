@@ -1,0 +1,2 @@
+#!/bin/sh -e
+java -jar /tmp/src/build/libs/krameriusiiif-0.0.1-SNAPSHOT.jar
