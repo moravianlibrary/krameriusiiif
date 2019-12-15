@@ -1,14 +1,24 @@
-package cz.rumanek.kramerius.krameriusiiif.entity;
+package cz.rumanek.kramerius.krameriusiiif.model;
 
-import java.util.Collections;
-import java.util.List;
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.solr.core.mapping.Indexed;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
-@SolrDocument(collection = "v5.0")
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * @SolDocument value adds collection/core name to path of SOLR request.
+ * If not defined, name of class is used/added.
+ * There seems to be no override for this behavior atm.
+ * For using Spel expression must upgrade to sping.data.solr 4.0
+ * https://jira.spring.io/browse/DATASOLR-463
+ */
+
+@SolrDocument(collection = "#{@solrCollectionName}")
 public class KDocument {
+
     @Id
     @Field("PID")
     @Indexed

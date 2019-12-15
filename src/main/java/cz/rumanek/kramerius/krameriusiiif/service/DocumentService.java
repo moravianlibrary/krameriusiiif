@@ -1,16 +1,16 @@
 package cz.rumanek.kramerius.krameriusiiif.service;
 
-import cz.rumanek.kramerius.krameriusiiif.dao.DocumentRepository;
-import cz.rumanek.kramerius.krameriusiiif.dao.ImageInfoRepository;
-import cz.rumanek.kramerius.krameriusiiif.dto.DocumentDTO;
-import cz.rumanek.kramerius.krameriusiiif.entity.Info;
-import cz.rumanek.kramerius.krameriusiiif.entity.KDocument;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Queue;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import cz.rumanek.kramerius.krameriusiiif.model.DocumentDTO;
+import cz.rumanek.kramerius.krameriusiiif.model.Info;
+import cz.rumanek.kramerius.krameriusiiif.model.KDocument;
+import cz.rumanek.kramerius.krameriusiiif.repository.DocumentRepository;
+import cz.rumanek.kramerius.krameriusiiif.repository.ImageInfoRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,10 +19,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-import javax.inject.Inject;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 
 @Service
 public class DocumentService {
@@ -35,7 +31,7 @@ public class DocumentService {
 
     ExecutorService executor = Executors.newFixedThreadPool(20);
 
-    @Inject
+    @Autowired
     public DocumentService(DocumentRepository repository, ImageInfoRepository imageInfoRepository) {
         this.repository = repository;
         this.imageRepository = imageInfoRepository;

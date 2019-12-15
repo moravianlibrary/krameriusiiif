@@ -1,6 +1,6 @@
-package cz.rumanek.kramerius.krameriusiiif.dao;
+package cz.rumanek.kramerius.krameriusiiif.repository;
 
-import cz.rumanek.kramerius.krameriusiiif.entity.Info;
+import cz.rumanek.kramerius.krameriusiiif.model.Info;
 
 public interface ImageInfoRepository {
 

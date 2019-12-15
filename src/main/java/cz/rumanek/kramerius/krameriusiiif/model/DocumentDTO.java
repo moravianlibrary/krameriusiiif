@@ -1,6 +1,5 @@
-package cz.rumanek.kramerius.krameriusiiif.dto;
+package cz.rumanek.kramerius.krameriusiiif.model;
 
-import cz.rumanek.kramerius.krameriusiiif.entity.Info;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 

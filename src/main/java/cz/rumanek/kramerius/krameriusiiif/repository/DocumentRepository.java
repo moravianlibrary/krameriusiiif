@@ -1,10 +1,11 @@
-package cz.rumanek.kramerius.krameriusiiif.dao;
+package cz.rumanek.kramerius.krameriusiiif.repository;
 
-import cz.rumanek.kramerius.krameriusiiif.entity.KDocument;
-import java.util.Optional;
+import cz.rumanek.kramerius.krameriusiiif.model.KDocument;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.Optional;
 
 public interface DocumentRepository extends PagingAndSortingRepository<KDocument, Long> {
     long count();
