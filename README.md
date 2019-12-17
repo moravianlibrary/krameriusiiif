@@ -1,4 +1,4 @@
-https://github.com/moravianlibrary/krameriusiiif/workflows/Java%20CI/badge.svg
+[![build status](https://github.com/moravianlibrary/krameriusiiif/workflows/Java%20CI/badge.svg) ](https://github.com/moravianlibrary/krameriusiiif/)
 [![codecov](https://codecov.io/gh/moravianlibrary/krameriusiiif/branch/master/graph/badge.svg)](https://codecov.io/gh/moravianlibrary/krameriusiiif)
 
 # krameriusiiif
