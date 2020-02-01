@@ -1,23 +1,14 @@
-buildscript {
-	ext {
-		springBootVersion = '2.2.2.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'eclipse'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'com.github.kt3k.coveralls' version '2.9.0'
 }
 
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-
 group = 'cz.rumanek.kramerius'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
