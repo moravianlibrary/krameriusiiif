@@ -1,0 +1,850 @@
+{
+  "@context" : "http://iiif.io/api/presentation/2/context.json",
+  "@type" : "sc:Manifest",
+  "@id" : "http://localhost:8080/iiif/uuid:6203552b-922b-425b-845a-2a7e1ee04c6c/manifest",
+  "label" : "Continuatio Historiae Revelationum /Nicolai Drabicii ab Anno 1659 ad 1663...",
+  "sequences" : [ {
+    "@type" : "sc:Sequence",
+    "canvases" : [ {
+      "@id" : "http://localhost:8080/iiif/uuid:c3dc5a1d-32d8-42fe-9cc4-b4aa38b6a3dd/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "FC",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:c3dc5a1d-32d8-42fe-9cc4-b4aa38b6a3dd/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:c3dc5a1d-32d8-42fe-9cc4-b4aa38b6a3dd",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1888,
+          "height" : 2232
+        },
+        "on" : "http://localhost:8080/iiif/uuid:c3dc5a1d-32d8-42fe-9cc4-b4aa38b6a3dd/canvas"
+      } ],
+      "width" : 1888,
+      "height" : 2232
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:9d9d391f-73e8-4fc8-90d8-d948c9c8de9f/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "FS",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:9d9d391f-73e8-4fc8-90d8-d948c9c8de9f/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:9d9d391f-73e8-4fc8-90d8-d948c9c8de9f",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1784,
+          "height" : 2216
+        },
+        "on" : "http://localhost:8080/iiif/uuid:9d9d391f-73e8-4fc8-90d8-d948c9c8de9f/canvas"
+      } ],
+      "width" : 1784,
+      "height" : 2216
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:2def5c96-5576-4283-b7da-3bf0ce13c4f1/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "SP",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:2def5c96-5576-4283-b7da-3bf0ce13c4f1/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:2def5c96-5576-4283-b7da-3bf0ce13c4f1",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 320,
+          "height" : 2208
+        },
+        "on" : "http://localhost:8080/iiif/uuid:2def5c96-5576-4283-b7da-3bf0ce13c4f1/canvas"
+      } ],
+      "width" : 320,
+      "height" : 2208
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:1b55194c-4305-4c72-a950-39fc1800cc9e/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "1",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:1b55194c-4305-4c72-a950-39fc1800cc9e/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:1b55194c-4305-4c72-a950-39fc1800cc9e",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1576,
+          "height" : 2128
+        },
+        "on" : "http://localhost:8080/iiif/uuid:1b55194c-4305-4c72-a950-39fc1800cc9e/canvas"
+      } ],
+      "width" : 1576,
+      "height" : 2128
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:6610404c-e5d7-4330-8a4d-2062fb84a265/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "2",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:6610404c-e5d7-4330-8a4d-2062fb84a265/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:6610404c-e5d7-4330-8a4d-2062fb84a265",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1592,
+          "height" : 2144
+        },
+        "on" : "http://localhost:8080/iiif/uuid:6610404c-e5d7-4330-8a4d-2062fb84a265/canvas"
+      } ],
+      "width" : 1592,
+      "height" : 2144
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:31d2572b-6d71-485c-9758-219d911a7554/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "3",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:31d2572b-6d71-485c-9758-219d911a7554/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:31d2572b-6d71-485c-9758-219d911a7554",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1576,
+          "height" : 2128
+        },
+        "on" : "http://localhost:8080/iiif/uuid:31d2572b-6d71-485c-9758-219d911a7554/canvas"
+      } ],
+      "width" : 1576,
+      "height" : 2128
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:abf6534c-7d2e-44d6-8313-09745cbb29a6/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "4",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:abf6534c-7d2e-44d6-8313-09745cbb29a6/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:abf6534c-7d2e-44d6-8313-09745cbb29a6",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1600,
+          "height" : 2160
+        },
+        "on" : "http://localhost:8080/iiif/uuid:abf6534c-7d2e-44d6-8313-09745cbb29a6/canvas"
+      } ],
+      "width" : 1600,
+      "height" : 2160
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:e8e56b4e-5fc1-45a4-9702-5c63a923ebac/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "5",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:e8e56b4e-5fc1-45a4-9702-5c63a923ebac/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:e8e56b4e-5fc1-45a4-9702-5c63a923ebac",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1576,
+          "height" : 2152
+        },
+        "on" : "http://localhost:8080/iiif/uuid:e8e56b4e-5fc1-45a4-9702-5c63a923ebac/canvas"
+      } ],
+      "width" : 1576,
+      "height" : 2152
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:d051bccc-694d-4da8-b2c3-9132d3869c05/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "6",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:d051bccc-694d-4da8-b2c3-9132d3869c05/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:d051bccc-694d-4da8-b2c3-9132d3869c05",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1600,
+          "height" : 2144
+        },
+        "on" : "http://localhost:8080/iiif/uuid:d051bccc-694d-4da8-b2c3-9132d3869c05/canvas"
+      } ],
+      "width" : 1600,
+      "height" : 2144
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:feada4df-4765-42f5-9527-dcb82df4d7fb/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "7",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:feada4df-4765-42f5-9527-dcb82df4d7fb/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:feada4df-4765-42f5-9527-dcb82df4d7fb",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1584,
+          "height" : 2152
+        },
+        "on" : "http://localhost:8080/iiif/uuid:feada4df-4765-42f5-9527-dcb82df4d7fb/canvas"
+      } ],
+      "width" : 1584,
+      "height" : 2152
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:1c5bc86e-1042-4d4c-903c-6f6d3121ed0a/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "8",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:1c5bc86e-1042-4d4c-903c-6f6d3121ed0a/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:1c5bc86e-1042-4d4c-903c-6f6d3121ed0a",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1600,
+          "height" : 2144
+        },
+        "on" : "http://localhost:8080/iiif/uuid:1c5bc86e-1042-4d4c-903c-6f6d3121ed0a/canvas"
+      } ],
+      "width" : 1600,
+      "height" : 2144
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:32ee3a14-c438-4598-909e-07fd365e50e2/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "9",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:32ee3a14-c438-4598-909e-07fd365e50e2/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:32ee3a14-c438-4598-909e-07fd365e50e2",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1584,
+          "height" : 2152
+        },
+        "on" : "http://localhost:8080/iiif/uuid:32ee3a14-c438-4598-909e-07fd365e50e2/canvas"
+      } ],
+      "width" : 1584,
+      "height" : 2152
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:44ad0636-62ab-4da3-9373-7e8cd0ad4f1b/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "10",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:44ad0636-62ab-4da3-9373-7e8cd0ad4f1b/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:44ad0636-62ab-4da3-9373-7e8cd0ad4f1b",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1600,
+          "height" : 2144
+        },
+        "on" : "http://localhost:8080/iiif/uuid:44ad0636-62ab-4da3-9373-7e8cd0ad4f1b/canvas"
+      } ],
+      "width" : 1600,
+      "height" : 2144
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:8afac7a3-81e9-433a-8ff8-eb9e8b1f8bc6/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "11",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:8afac7a3-81e9-433a-8ff8-eb9e8b1f8bc6/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:8afac7a3-81e9-433a-8ff8-eb9e8b1f8bc6",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2112
+        },
+        "on" : "http://localhost:8080/iiif/uuid:8afac7a3-81e9-433a-8ff8-eb9e8b1f8bc6/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2112
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:bf1c71a6-31aa-44e5-b84f-bad142983675/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "12",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:bf1c71a6-31aa-44e5-b84f-bad142983675/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:bf1c71a6-31aa-44e5-b84f-bad142983675",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1600,
+          "height" : 2144
+        },
+        "on" : "http://localhost:8080/iiif/uuid:bf1c71a6-31aa-44e5-b84f-bad142983675/canvas"
+      } ],
+      "width" : 1600,
+      "height" : 2144
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:87cae285-14e7-40fc-a592-556889eff4d8/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "13",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:87cae285-14e7-40fc-a592-556889eff4d8/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:87cae285-14e7-40fc-a592-556889eff4d8",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2136
+        },
+        "on" : "http://localhost:8080/iiif/uuid:87cae285-14e7-40fc-a592-556889eff4d8/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2136
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:7272f971-1a69-49d0-8846-489b23c41962/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "14",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:7272f971-1a69-49d0-8846-489b23c41962/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:7272f971-1a69-49d0-8846-489b23c41962",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2160
+        },
+        "on" : "http://localhost:8080/iiif/uuid:7272f971-1a69-49d0-8846-489b23c41962/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2160
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:175cfc73-5c88-44b9-9c1f-9dbfaf9d1474/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "15",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:175cfc73-5c88-44b9-9c1f-9dbfaf9d1474/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:175cfc73-5c88-44b9-9c1f-9dbfaf9d1474",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2136
+        },
+        "on" : "http://localhost:8080/iiif/uuid:175cfc73-5c88-44b9-9c1f-9dbfaf9d1474/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2136
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:e9002bf1-56d9-4646-94ca-015b17305b8e/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "16",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:e9002bf1-56d9-4646-94ca-015b17305b8e/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:e9002bf1-56d9-4646-94ca-015b17305b8e",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2160
+        },
+        "on" : "http://localhost:8080/iiif/uuid:e9002bf1-56d9-4646-94ca-015b17305b8e/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2160
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:b543b961-1f96-4ab3-860e-00bdcf355af3/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "17",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:b543b961-1f96-4ab3-860e-00bdcf355af3/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:b543b961-1f96-4ab3-860e-00bdcf355af3",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2136
+        },
+        "on" : "http://localhost:8080/iiif/uuid:b543b961-1f96-4ab3-860e-00bdcf355af3/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2136
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:3d88c443-494e-4b33-bbf5-d4ba9561831e/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "18",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:3d88c443-494e-4b33-bbf5-d4ba9561831e/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:3d88c443-494e-4b33-bbf5-d4ba9561831e",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2152
+        },
+        "on" : "http://localhost:8080/iiif/uuid:3d88c443-494e-4b33-bbf5-d4ba9561831e/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2152
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:945e5abc-f80e-4486-9c6e-5f8976ee45d5/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "19",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:945e5abc-f80e-4486-9c6e-5f8976ee45d5/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:945e5abc-f80e-4486-9c6e-5f8976ee45d5",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2136
+        },
+        "on" : "http://localhost:8080/iiif/uuid:945e5abc-f80e-4486-9c6e-5f8976ee45d5/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2136
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:0ae4fb7e-912a-4a3b-b038-8f622db8e366/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "20",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:0ae4fb7e-912a-4a3b-b038-8f622db8e366/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:0ae4fb7e-912a-4a3b-b038-8f622db8e366",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2144
+        },
+        "on" : "http://localhost:8080/iiif/uuid:0ae4fb7e-912a-4a3b-b038-8f622db8e366/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2144
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:e8ffd479-6720-4278-85e7-e81aa5d7c5e2/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "21",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:e8ffd479-6720-4278-85e7-e81aa5d7c5e2/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:e8ffd479-6720-4278-85e7-e81aa5d7c5e2",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1584,
+          "height" : 2128
+        },
+        "on" : "http://localhost:8080/iiif/uuid:e8ffd479-6720-4278-85e7-e81aa5d7c5e2/canvas"
+      } ],
+      "width" : 1584,
+      "height" : 2128
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:a8b62bb6-741c-4832-90c4-4c6d1069db17/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "22",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:a8b62bb6-741c-4832-90c4-4c6d1069db17/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:a8b62bb6-741c-4832-90c4-4c6d1069db17",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2144
+        },
+        "on" : "http://localhost:8080/iiif/uuid:a8b62bb6-741c-4832-90c4-4c6d1069db17/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2144
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:bb66550f-cdfd-4f44-862b-80f5f1772f2b/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "23",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:bb66550f-cdfd-4f44-862b-80f5f1772f2b/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:bb66550f-cdfd-4f44-862b-80f5f1772f2b",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1584,
+          "height" : 2128
+        },
+        "on" : "http://localhost:8080/iiif/uuid:bb66550f-cdfd-4f44-862b-80f5f1772f2b/canvas"
+      } ],
+      "width" : 1584,
+      "height" : 2128
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:893f8941-9d42-4558-8173-f8097bcc6c3b/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "24",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:893f8941-9d42-4558-8173-f8097bcc6c3b/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:893f8941-9d42-4558-8173-f8097bcc6c3b",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2152
+        },
+        "on" : "http://localhost:8080/iiif/uuid:893f8941-9d42-4558-8173-f8097bcc6c3b/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2152
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:c9fb03e8-bbca-4f8f-81f1-c9d641588620/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "25",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:c9fb03e8-bbca-4f8f-81f1-c9d641588620/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:c9fb03e8-bbca-4f8f-81f1-c9d641588620",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1576,
+          "height" : 2128
+        },
+        "on" : "http://localhost:8080/iiif/uuid:c9fb03e8-bbca-4f8f-81f1-c9d641588620/canvas"
+      } ],
+      "width" : 1576,
+      "height" : 2128
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:88b44797-c317-4a83-82ed-234c6b38215e/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "26",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:88b44797-c317-4a83-82ed-234c6b38215e/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:88b44797-c317-4a83-82ed-234c6b38215e",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1640,
+          "height" : 2152
+        },
+        "on" : "http://localhost:8080/iiif/uuid:88b44797-c317-4a83-82ed-234c6b38215e/canvas"
+      } ],
+      "width" : 1640,
+      "height" : 2152
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:4729e761-52ea-4e97-a114-6c96a5c0c7f6/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "27",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:4729e761-52ea-4e97-a114-6c96a5c0c7f6/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:4729e761-52ea-4e97-a114-6c96a5c0c7f6",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1608,
+          "height" : 2128
+        },
+        "on" : "http://localhost:8080/iiif/uuid:4729e761-52ea-4e97-a114-6c96a5c0c7f6/canvas"
+      } ],
+      "width" : 1608,
+      "height" : 2128
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:e861d759-4021-49d8-86de-3df294bb1f70/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "28",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:e861d759-4021-49d8-86de-3df294bb1f70/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:e861d759-4021-49d8-86de-3df294bb1f70",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1640,
+          "height" : 2112
+        },
+        "on" : "http://localhost:8080/iiif/uuid:e861d759-4021-49d8-86de-3df294bb1f70/canvas"
+      } ],
+      "width" : 1640,
+      "height" : 2112
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:4a6eaacc-0c6e-4f7c-8764-16abead1208b/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "I",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:4a6eaacc-0c6e-4f7c-8764-16abead1208b/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:4a6eaacc-0c6e-4f7c-8764-16abead1208b",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1616,
+          "height" : 2136
+        },
+        "on" : "http://localhost:8080/iiif/uuid:4a6eaacc-0c6e-4f7c-8764-16abead1208b/canvas"
+      } ],
+      "width" : 1616,
+      "height" : 2136
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:64db9760-dce8-4621-93fa-e137cb396e47/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "II",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:64db9760-dce8-4621-93fa-e137cb396e47/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:64db9760-dce8-4621-93fa-e137cb396e47",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1672,
+          "height" : 2152
+        },
+        "on" : "http://localhost:8080/iiif/uuid:64db9760-dce8-4621-93fa-e137cb396e47/canvas"
+      } ],
+      "width" : 1672,
+      "height" : 2152
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:d8a870e3-4312-45a9-a2e0-61123b637884/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "BS",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:d8a870e3-4312-45a9-a2e0-61123b637884/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:d8a870e3-4312-45a9-a2e0-61123b637884",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1720,
+          "height" : 2224
+        },
+        "on" : "http://localhost:8080/iiif/uuid:d8a870e3-4312-45a9-a2e0-61123b637884/canvas"
+      } ],
+      "width" : 1720,
+      "height" : 2224
+    }, {
+      "@id" : "http://localhost:8080/iiif/uuid:71b50ce7-c377-459c-b3ac-f77628c6debe/canvas",
+      "@type" : "sc:Canvas",
+      "label" : "BC",
+      "images" : [ {
+        "@type" : "oa:Annotation",
+        "motivation" : "sc:painting",
+        "resource" : {
+          "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:71b50ce7-c377-459c-b3ac-f77628c6debe/full/full/0/default.jpg",
+          "@type" : "dctypes:Image",
+          "service" : {
+            "@context" : "http://iiif.io/api/image/2/context.json",
+            "@id" : "https://kramerius.mzk.cz/search/iiif/uuid:71b50ce7-c377-459c-b3ac-f77628c6debe",
+            "profile" : "http://iiif.io/api/image/2/level1.json",
+            "protocol" : "http://iiif.io/api/image"
+          },
+          "format" : "image/jpeg",
+          "width" : 1848,
+          "height" : 2240
+        },
+        "on" : "http://localhost:8080/iiif/uuid:71b50ce7-c377-459c-b3ac-f77628c6debe/canvas"
+      } ],
+      "width" : 1848,
+      "height" : 2240
+    } ]
+  } ]
+}

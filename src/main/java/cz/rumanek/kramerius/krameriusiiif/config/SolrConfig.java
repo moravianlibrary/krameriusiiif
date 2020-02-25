@@ -21,8 +21,7 @@ public class SolrConfig {
 
     @Bean
     public SolrClient solrClient() {
-        String urlString = solrEndpointUrl;
-        HttpSolrClient solrClient = new HttpSolrClient.Builder(urlString).build();
+        HttpSolrClient solrClient = new HttpSolrClient.Builder(solrEndpointUrl).build();
 
         /**
          * When using SOLR endpoint https://kramerius.mzk.cz/search/api/v5.0/search
@@ -34,21 +33,15 @@ public class SolrConfig {
          *
          */
 
-        solrClient.setRequestWriter(new RequestWriter() {
-            @Override
-            public String getPath(SolrRequest req) {
-                logger.info("SOLR:"+ req.getParams());
-                String path = super.getPath(req);
-                if (solrEndpointUrl.contains("kramerius.mzk.cz")) {
-                    return path.replace("select", "search");
-                }
-                else {
-                    return path;
-                }
-            }
-        });
-        // Solr endpoint at kramerius.mzk.cz doesn`t support default (faster) BinaryResponseParser
         if (solrEndpointUrl.contains("kramerius.mzk.cz")) {
+            solrClient.setRequestWriter(new RequestWriter() {
+                @Override
+                public String getPath(SolrRequest req) {
+                    logger.info("SOLR:" + req.getParams().toString().replace("\\", ""));
+                    return ("/search");
+                }
+            });
+            // Solr endpoint at kramerius.mzk.cz doesn`t support default (faster) BinaryResponseParser
             solrClient.setParser(new XMLResponseParser());
         }
         return solrClient;

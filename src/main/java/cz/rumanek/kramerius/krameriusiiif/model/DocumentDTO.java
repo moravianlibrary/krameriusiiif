@@ -3,7 +3,13 @@ package cz.rumanek.kramerius.krameriusiiif.model;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class DocumentDTO {
+/**
+ * Combined retrieved data to construct manifest
+ */
+
+// Final class ensures type safety when casting on interface
+// such as Future etc. in streaming expressions
+public final class DocumentDTO {
     private String pid;
     private String label;
     private String model;

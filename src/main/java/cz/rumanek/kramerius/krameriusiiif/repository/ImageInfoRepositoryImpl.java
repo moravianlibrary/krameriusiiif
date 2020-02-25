@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * URL of IIIF Image API is defined in application.properties as "kramerius.iiif.endpoint"
+ */
 @Repository
 public class ImageInfoRepositoryImpl implements ImageInfoRepository {
 
@@ -21,6 +24,7 @@ public class ImageInfoRepositoryImpl implements ImageInfoRepository {
         try {
             return restTemplate.getForObject(iiifEndpointUrl + pid + "/info.json", Info.class);
         } catch (HttpServerErrorException e) {
+            System.out.println("Request for invalid image PID => " + pid);
             return null; //TODO-MR When Kramerius return 500. Shitty, but will be replaced by webflux?
         }
     }

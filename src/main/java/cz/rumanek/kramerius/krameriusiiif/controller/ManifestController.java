@@ -10,10 +10,9 @@ import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import de.digitalcollections.iiif.model.sharedcanvas.Sequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpServerErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -23,7 +22,7 @@ import java.util.Optional;
 public class ManifestController {
 
     /**
-     * IIIF Image API endpoint
+     * IIIF Image API endpoint url
      */
     @Value("${kramerius.iiif.endpoint}")
     private String iiifEndpointURL;
@@ -31,7 +30,7 @@ public class ManifestController {
     @Autowired
     private DocumentService documentService;
 
-    @RequestMapping("/")
+    @GetMapping(value = "/")
     public Collection home(HttpServletRequest request) {
         Collection collection = new Collection(request.getRequestURL().toString());
         collection.setLabel(new PropertyValue("Vybrané kolekce"));
@@ -47,7 +46,7 @@ public class ManifestController {
         return collection;
     }
 
-    @RequestMapping("{pid}/collection")
+    @GetMapping(value = "{pid}/collection")
     public Collection collection(HttpServletRequest request, @PathVariable String pid) {
         Optional<DocumentDTO> document = documentService.findByPid(pid);
         if (document.isPresent()) {
@@ -67,7 +66,7 @@ public class ManifestController {
         }
     }
 
-    @RequestMapping("{pid}/manifest")
+    @GetMapping(value = "{pid}/manifest")
     public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
 
         Optional<DocumentDTO> document = documentService.findByPid(pid);
@@ -79,18 +78,12 @@ public class ManifestController {
 
             documentService.findByParentPid(pid).filter(doc -> doc.getModel().equals("page"))
                     .map(doc -> {
-                        try {
-                            Canvas canvas = new Canvas(getBaseUrl(request) + doc.getPid() + "/canvas");
-                            canvas.setWidth(doc.getWidth());
-                            canvas.setHeight(doc.getHeight());
-                            canvas.setLabel(new PropertyValue(doc.getLabel()));
-
-                            StringBuffer requestURL = new StringBuffer(iiifEndpointURL);
-                            canvas.addIIIFImage(requestURL.append(doc.getPid()).toString(), ImageApiProfile.LEVEL_ONE);
-                            return canvas;
-                        } catch (HttpServerErrorException e) {
-                            throw new RuntimeException(doc.getPid() + " is simply wrong");
-                        }
+                        Canvas canvas = new Canvas(getBaseUrl(request) + doc.getPid() + "/canvas");
+                        canvas.setWidth(doc.getWidth());
+                        canvas.setHeight(doc.getHeight());
+                        canvas.setLabel(new PropertyValue(doc.getLabel()));
+                        canvas.addIIIFImage(iiifEndpointURL + doc.getPid(), ImageApiProfile.LEVEL_ONE);
+                        return canvas;
                     }).forEachOrdered(canvas -> sequence.addCanvas(canvas));
 
             manifest.addSequence(sequence);
@@ -98,20 +91,6 @@ public class ManifestController {
         } else {
             return null;
         }
-    }
-
-    @RequestMapping("{pid}/canvas")
-    public Canvas canvas(HttpServletRequest request, @PathVariable String pid) {
-        DocumentDTO doc = documentService.findByPid(pid).get();
-
-        Canvas canvas = new Canvas(getBaseUrl(request) + doc.getPid() + "/canvas");
-        canvas.setWidth(doc.getWidth());
-        canvas.setHeight(doc.getHeight());
-        canvas.setLabel(new PropertyValue(doc.getLabel()));
-
-        StringBuffer requestURL = new StringBuffer(iiifEndpointURL);
-        canvas.addIIIFImage(requestURL.append(doc.getPid()).toString(), ImageApiProfile.LEVEL_ONE);
-        return canvas;
     }
 
     private String getBaseUrl(HttpServletRequest request) {

@@ -31,7 +31,8 @@ public class AppConfiguration {
     @Bean
     public IiifObjectMapper iiifObjectMapper() {
         IiifObjectMapper objectMapper = new IiifObjectMapper();
-        if (env.getProperty("kramerius.prettyprint").equals("YES")) {
+        String prettyPrint = env.getProperty("kramerius.prettyprint","DEFAULT");
+        if (prettyPrint.equals("YES")) {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         }
         return objectMapper;

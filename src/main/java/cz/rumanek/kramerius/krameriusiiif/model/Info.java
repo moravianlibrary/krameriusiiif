@@ -2,8 +2,11 @@ package cz.rumanek.kramerius.krameriusiiif.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Image information from info.json
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Info {
+public final class Info {
     private Integer width;
     private Integer height;
 

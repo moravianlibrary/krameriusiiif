@@ -8,16 +8,19 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * @SolDocument value adds collection/core name to path of SOLR request.
+/*
+ * @SolDocument value "collection" adds collection/core name to path of SOLR request.
  * If not defined, name of class is used/added.
- * There seems to be no override for this behavior atm.
- * For using Spel expression must upgrade to sping.data.solr 4.0
- * https://jira.spring.io/browse/DATASOLR-463
+ * There seems to be no global override for this behavior.
+ * Collection name is set in application.properties as "kramerius.solr.core"
+ * Because this annotation cannot read using SPEL directly from application.properties with $ symbol
+ * (like in "${kramerius.iiif.endpoint}"), value is transfered by "solrCollectionName" bean in AppConfiguration
  */
-
+/**
+ * Defines fields to be retrieved form SOLR using "Spring Data Solr"
+ */
 @SolrDocument(collection = "#{@solrCollectionName}")
-public class KDocument {
+public final class KDocument {
 
     @Id
     @Field("PID")

@@ -1,0 +1,31 @@
+{
+  "@context" : "http://iiif.io/api/presentation/2/context.json",
+  "@id" : "http://HOST:PORT/iiif/uuid:5a2dd690-54b9-11de-8bcd-000d606f5dc6/collection",
+  "@type" : "sc:Collection",
+  "label" : "Davidova houpačka",
+  "collections" : [ {
+    "@id" : "http://localhost:51137/iiif/uuid:303c91b0-490a-11de-921d-000d606f5dc6/collection",
+    "@type" : "sc:Collection",
+    "label" : "1"
+  }, {
+    "@id" : "http://localhost:51137/iiif/uuid:ae083090-4905-11de-a0f5-000d606f5dc6/collection",
+    "@type" : "sc:Collection",
+    "label" : "2"
+  }, {
+    "@id" : "http://localhost:51137/iiif/uuid:44a73b70-4908-11de-b213-000d606f5dc6/collection",
+    "@type" : "sc:Collection",
+    "label" : "3"
+  }, {
+    "@id" : "http://localhost:51137/iiif/uuid:9cf6cb80-4929-11de-8d31-000d606f5dc6/collection",
+    "@type" : "sc:Collection",
+    "label" : "4"
+  }, {
+    "@id" : "http://localhost:51137/iiif/uuid:4f71ed50-4919-11de-8eb9-000d606f5dc6/collection",
+    "@type" : "sc:Collection",
+    "label" : "5"
+  }, {
+    "@id" : "http://localhost:51137/iiif/uuid:48273870-491e-11de-a206-000d606f5dc6/collection",
+    "@type" : "sc:Collection",
+    "label" : "6"
+  } ]
+}
