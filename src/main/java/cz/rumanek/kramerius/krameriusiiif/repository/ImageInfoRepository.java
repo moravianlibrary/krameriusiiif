@@ -9,5 +9,5 @@ public interface ImageInfoRepository {
      * @param pid
      * @return
      */
-    Info get(String pid);
+    Info getInfo(String pid);
 }

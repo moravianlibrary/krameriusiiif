@@ -16,8 +16,11 @@ public class SolrConfig {
 
     Logger logger = LoggerFactory.getLogger(SolrConfig.class);
 
-    @Value("${kramerius.solr.endpoint}")
-    private String solrEndpointUrl;
+    private final String solrEndpointUrl;
+
+    public SolrConfig(@Value("#{getSolrEndpoint}") String solrEndpointUrl) {
+        this.solrEndpointUrl = solrEndpointUrl;
+    }
 
     @Bean
     public SolrClient solrClient() {

@@ -24,14 +24,31 @@ public class AppConfiguration {
     private Environment env;
 
     @Bean
-    String solrCollectionName() {
-        return env.getProperty("kramerius.solr.core");
+    String getSolrCollectionName() {
+        return env.getProperty("kramerius.solr.core","kramerius");
+    }
+
+    @Bean
+    String getImageEndpoint() {
+        return env.getProperty("kramerius.iiif.endpoint","https://kramerius.mzk.cz/search/iiif/");
+    }
+
+    @Bean
+    String getSolrEndpoint() {
+        return env.getProperty("kramerius.solr.endpoint","https://kramerius.mzk.cz/search/api/");
+    }
+
+    @Bean
+    String getBaseUrl() {
+        String serverUrl = env.getProperty("kramerius.iiif.server.url","http://localhost:8080");
+        String contextPath = env.getProperty("server.servlet.context-path","/iiif") + "/";
+        return serverUrl + contextPath;
     }
 
     @Bean
     public IiifObjectMapper iiifObjectMapper() {
         IiifObjectMapper objectMapper = new IiifObjectMapper();
-        String prettyPrint = env.getProperty("kramerius.prettyprint","DEFAULT");
+        String prettyPrint = env.getProperty("kramerius.prettyprint","NO");
         if (prettyPrint.equals("YES")) {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         }

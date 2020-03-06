@@ -1,6 +1,5 @@
 package cz.rumanek.kramerius.krameriusiiif;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import cz.rumanek.kramerius.krameriusiiif.config.AppConfiguration;
 import cz.rumanek.kramerius.krameriusiiif.config.CorsFilter;
@@ -15,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.mock.web.MockFilterChain;
@@ -50,8 +50,7 @@ public class ConfigTests {
 
     @Test
     public void solrConfigExternalServerTest() {
-        SolrConfig solrConfig = new SolrConfig();
-        ReflectionTestUtils.setField(solrConfig, "solrEndpointUrl", KRAMERIUS_SOLR_URL);
+        SolrConfig solrConfig = new SolrConfig(KRAMERIUS_SOLR_URL);
         HttpSolrClient httpSolrClient = (HttpSolrClient) solrConfig.solrClient();
         assertThat(httpSolrClient.getParser()).as("Validate response parser").isInstanceOf(XMLResponseParser.class);
         RequestWriter requestWriter = (RequestWriter) ReflectionTestUtils.getField(httpSolrClient,"requestWriter");
@@ -60,8 +59,7 @@ public class ConfigTests {
 
     @Test
     public void solrConfigLocalServerTest() {
-        SolrConfig solrConfig = new SolrConfig();
-        ReflectionTestUtils.setField(solrConfig, "solrEndpointUrl", "///");
+        SolrConfig solrConfig = new SolrConfig("///");
         HttpSolrClient httpSolrClient = (HttpSolrClient) solrConfig.solrClient();
         assertThat(httpSolrClient.getParser()).as("Validate response parser").isInstanceOf(BinaryResponseParser.class);
         RequestWriter requestWriter = (RequestWriter) ReflectionTestUtils.getField(httpSolrClient,"requestWriter");
@@ -74,16 +72,18 @@ public class ConfigTests {
     @InjectMocks
     AppConfiguration appConfiguration;
 
+    static final String PRETTY_PRINT_ENV_PROPERTY = "kramerius.prettyprint";
+
     @Test
-    public void iiifObjectMapperIndentTest() throws JsonProcessingException {
-        when(env.getProperty("kramerius.prettyprint","DEFAULT")).thenReturn("YES");
+    public void iiifObjectMapperIndentTest() {
+        when(env.getProperty(Mockito.eq(PRETTY_PRINT_ENV_PROPERTY), Mockito.anyString())).thenReturn("YES");
         IiifObjectMapper iiifObjectMapper = appConfiguration.iiifObjectMapper();
         assertThat(iiifObjectMapper.isEnabled(SerializationFeature.INDENT_OUTPUT)).isTrue();
     }
 
     @Test
-    public void iiifObjectMapperNoIndentTest() throws JsonProcessingException {
-        when(env.getProperty("kramerius.prettyprint","DEFAULT")).thenReturn("NO");
+    public void iiifObjectMapperNoIndentTest() {
+        when(env.getProperty(Mockito.eq(PRETTY_PRINT_ENV_PROPERTY), Mockito.anyString())).thenReturn("NO");
         IiifObjectMapper iiifObjectMapper = appConfiguration.iiifObjectMapper();
         assertThat(iiifObjectMapper.isEnabled(SerializationFeature.INDENT_OUTPUT)).isFalse();
     }

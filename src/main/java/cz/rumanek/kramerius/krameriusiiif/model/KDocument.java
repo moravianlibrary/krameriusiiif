@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.solr.core.mapping.Indexed;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
-import java.util.Collections;
 import java.util.List;
 
 /*
@@ -19,7 +18,7 @@ import java.util.List;
 /**
  * Defines fields to be retrieved form SOLR using "Spring Data Solr"
  */
-@SolrDocument(collection = "#{@solrCollectionName}")
+@SolrDocument(collection = "#{@getSolrCollectionName}")
 public final class KDocument {
 
     @Id
@@ -36,7 +35,7 @@ public final class KDocument {
     @Field("fedora.model")
     private String model;
 
-    @Field("rels_ext_index")
+    @Field(value = "rels_ext_index")
     private List<Integer> relsIndex;
 
     public String getPid() {
@@ -58,7 +57,7 @@ public final class KDocument {
                 '}';
     }
 
-    public List<Integer> getRelsIndex() {
-        return Collections.unmodifiableList(relsIndex);
+    public Integer getRelsIndex() {
+        return relsIndex.get(0);
     }
 }

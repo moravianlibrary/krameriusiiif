@@ -9,13 +9,14 @@ import java.util.concurrent.Future;
 
 // Final class ensures type safety when casting on interface
 // such as Future etc. in streaming expressions
-public final class DocumentDTO {
+public final class DocumentDTO implements DocumentEntity {
     private String pid;
     private String label;
     private String model;
 
     public Future<Info> info;
 
+    @Override
     public String getPid() {
         return pid;
     }
@@ -24,6 +25,7 @@ public final class DocumentDTO {
         this.pid = pid;
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
@@ -40,17 +42,10 @@ public final class DocumentDTO {
         this.model = model;
     }
 
-    public Integer getHeight() {
+    @Override
+    public Info getInfo(){
         try {
-            return info.get().getHeight();
-        } catch (InterruptedException | ExecutionException e) {
-            return null;
-        }
-    }
-
-    public Integer getWidth() {
-        try {
-            return info.get().getWidth();
+            return info.get();
         } catch (InterruptedException | ExecutionException e) {
             return null;
         }
@@ -58,6 +53,11 @@ public final class DocumentDTO {
 
     public void setInfo(Future<Info> info) {
         this.info = info;
+    }
+
+    @Override
+    public boolean isPage() {
+        return model.equals("page");
     }
 
 }

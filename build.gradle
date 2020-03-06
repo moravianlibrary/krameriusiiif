@@ -16,16 +16,14 @@ repositories {
 }
 
 jacocoTestReport {
+	String[] excludeFromCoverage = coverageExcludeClasses.split(',')
 	reports {
 		xml.enabled true
 		html.enabled true
 	}
 	afterEvaluate {
 		classDirectories = files(classDirectories.files.collect {
-			fileTree(dir: it,
-					exclude: ['**/krameriusiiif/model/KDocument.class',
-							  '**/krameriusiiif/Application.class'
-					])
+			fileTree(dir: it, exclude: excludeFromCoverage)
 		})
 	}
 }
@@ -47,8 +45,6 @@ dependencies {
 	compile('de.digitalcollections.iiif:iiif-apis:0.3.3')
 	compile('org.modelmapper:modelmapper:2.2.0')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile ('org.powermock:powermock-module-junit4:2.0.0')
-	testCompile ('org.powermock:powermock-api-mockito2:2.0.0')
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 

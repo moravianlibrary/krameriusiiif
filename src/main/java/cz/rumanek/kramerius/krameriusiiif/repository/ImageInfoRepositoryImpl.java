@@ -4,6 +4,7 @@ import cz.rumanek.kramerius.krameriusiiif.model.Info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,19 +14,23 @@ import org.springframework.web.client.RestTemplate;
 @Repository
 public class ImageInfoRepositoryImpl implements ImageInfoRepository {
 
-    @Value("${kramerius.iiif.endpoint}")
-    private String iiifEndpointUrl;
+    private final String iiifEndpointUrl;
 
     @Autowired
     private RestTemplate restTemplate;
 
+    public ImageInfoRepositoryImpl(@Value("#{getImageEndpoint}") String iiifEndpointUrl) {
+        this.iiifEndpointUrl = iiifEndpointUrl;
+    }
+
     @Override
-    public Info get(String pid) {
+    public Info getInfo(String pid) {
         try {
+            //System.out.println("Request for image PID => " + pid);
             return restTemplate.getForObject(iiifEndpointUrl + pid + "/info.json", Info.class);
-        } catch (HttpServerErrorException e) {
-            System.out.println("Request for invalid image PID => " + pid);
-            return null; //TODO-MR When Kramerius return 500. Shitty, but will be replaced by webflux?
+        } catch (HttpServerErrorException | HttpClientErrorException e) {
+            System.out.println("Request for invalid image PID => " + pid + " => " + e.getStatusText() + " " + e.getStatusCode());
+            return null;
         }
     }
 }
