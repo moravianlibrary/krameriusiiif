@@ -93,7 +93,7 @@ public class RestTemplateIntegrationTests {
         assertThat(responseEntity.getBody()).isEqualTo(null);
     }
 
-    private void compareResponseAndFileInResources(ResponseEntity entity, String file) throws IOException {
+    private void compareResponseAndFileInResources(ResponseEntity<?> entity, String file) throws IOException {
         String responseBody = objectMapper.writeValueAsString(entity.getBody());
         org.springframework.core.io.Resource resource = new DefaultResourceLoader().getResource(file);
         String savedFile = StreamUtils.copyToString(resource.getInputStream(), Charset.forName(FILE_ENCODING));
@@ -123,6 +123,6 @@ public class RestTemplateIntegrationTests {
      * Stripping actual host and port for comparing content
      */
     private static String removeHostAndPort(String manifest, String sourceContextPath) {
-        return  manifest.replaceAll("(http|https):\\/\\/.*"+ sourceContextPath + "/","http://host:port/iiif/");
+        return  manifest.replaceAll("(http|https)://.*"+ sourceContextPath + "/","http://host:port/iiif/");
     }
 }

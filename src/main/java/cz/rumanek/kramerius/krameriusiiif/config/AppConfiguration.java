@@ -8,14 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 
 @Configuration
-@EnableSolrRepositories(
-        basePackages = "cz.rumanek.kramerius.krameriusiiif")
 @ComponentScan
 @ConfigurationProperties
 public class AppConfiguration {

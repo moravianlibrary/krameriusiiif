@@ -1,10 +1,11 @@
 package cz.rumanek.kramerius.krameriusiiif.controller;
 
-import cz.rumanek.kramerius.krameriusiiif.model.DocumentDTO;
+import cz.rumanek.kramerius.krameriusiiif.manifest.CanvasBuilder;
+import cz.rumanek.kramerius.krameriusiiif.manifest.CollectionBuilder;
+import cz.rumanek.kramerius.krameriusiiif.manifest.ManifestBuilder;
+import cz.rumanek.kramerius.krameriusiiif.model.DocumentEntity;
 import cz.rumanek.kramerius.krameriusiiif.service.DocumentService;
 import de.digitalcollections.iiif.model.PropertyValue;
-import de.digitalcollections.iiif.model.image.ImageApiProfile;
-import de.digitalcollections.iiif.model.sharedcanvas.Canvas;
 import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import de.digitalcollections.iiif.model.sharedcanvas.Sequence;
@@ -13,8 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
@@ -54,61 +53,50 @@ public class ManifestController {
     }
 
     @GetMapping(value = "{pid}/collection")
-    public Collection collection(@PathVariable String pid) {
-        Optional<DocumentDTO> document = documentService.findByPid(pid);
-        if (document.isPresent()) {
-            Collection collection = new Collection(getRequestURL());
-            collection.setLabel(new PropertyValue(document.get().getLabel()));
-
-            documentService.findByParentPid(pid).filter(doc -> !doc.isPage()).map(doc-> {
-                Collection collection1 = new Collection(getRequestBaseUrl() + doc.getPid() + "/collection");
-                collection1.setLabel(new PropertyValue(doc.getLabel()));
-                return collection1;
-            }).forEachOrdered(coll -> collection.addCollection(coll));
-
-            return collection;
+    public Collection collection(HttpServletRequest request, @PathVariable String pid) {
+        Optional<DocumentEntity> parentDoc = documentService.findByPid(pid);
+        if (parentDoc.isPresent()) {
+            Collection parentCollection =
+                    CollectionBuilder.of(parentDoc.get())
+//***baseUrl instead  .setId(request.getRequestURL())
+                    .baseUrl(baseUrl)
+                    .label()
+                    .build();
+            documentService.getCollectionDocumentsFor(pid).map(doc->
+                    CollectionBuilder.of(doc)
+                    .baseUrl(baseUrl)
+                    .label()
+                    .build()).forEachOrdered(parentCollection::addCollection);
+            return parentCollection;
         } else {
             return null;
         }
     }
 
     @GetMapping(value = "{pid}/manifest")
-    public Manifest manifest(@PathVariable String pid) {
-
-        Optional<DocumentDTO> document = documentService.findByPid(pid);
-
-        if (document.isPresent()) {
-            Manifest manifest = new Manifest(getRequestURL());
-            manifest.setLabel(new PropertyValue(document.get().getLabel()));
+    public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
+        Optional<DocumentEntity> parentDoc = documentService.findByPid(pid);
+        if (parentDoc.isPresent()) {
             Sequence sequence = new Sequence(null);
-
-            documentService.findByParentPid(pid).filter(doc -> doc.isPage())
-                    .map(doc -> {
-                        Canvas canvas = new Canvas(getRequestBaseUrl() + doc.getPid() + "/canvas");
-                        canvas.setWidth(doc.getInfo().getWidth());
-                        canvas.setHeight(doc.getInfo().getHeight());
-                        canvas.setLabel(new PropertyValue(doc.getLabel()));
-                        canvas.addIIIFImage(iiifEndpointURL + doc.getPid(), ImageApiProfile.LEVEL_ONE);
-                        return canvas;
-                    }).forEachOrdered(canvas -> sequence.addCanvas(canvas));
-
-            manifest.addSequence(sequence);
-            return manifest;
-        } else {
+            documentService.getPagesFor(pid)
+                    .map(page -> CanvasBuilder.of(page)
+                            .baseUrl(baseUrl)
+                            .label()
+                            .resolution()
+                            .imageUrl(iiifEndpointURL)
+  //***second resolution    .canvasRatio()
+                            .build()
+                    )
+                    .forEachOrdered(sequence::addCanvas);
+            return ManifestBuilder.of(parentDoc.get())
+                    .setId(request.getRequestURL())
+                    .label()
+                    .build()
+                    .addSequence(sequence);
+        }
+        else {
             return null;
         }
-    }
-
-    private HttpServletRequest getRequest() {
-        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-    }
-
-    private String getRequestURL() {
-        return getRequest().getRequestURL().toString();
-    }
-
-    private String getRequestBaseUrl() {
-        return getRequestURL().replace(getRequest().getRequestURI(), getRequest().getContextPath() + "/");
     }
 
 }

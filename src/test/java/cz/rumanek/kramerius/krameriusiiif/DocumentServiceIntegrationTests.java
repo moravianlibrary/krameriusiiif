@@ -1,6 +1,6 @@
 package cz.rumanek.kramerius.krameriusiiif;
 
-import cz.rumanek.kramerius.krameriusiiif.model.DocumentDTO;
+import cz.rumanek.kramerius.krameriusiiif.model.DocumentEntity;
 import cz.rumanek.kramerius.krameriusiiif.service.DocumentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 //TODO create tests separate for page, collection etc. with image info check
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DocumentServiceIntegrationTests {
 
 	@Autowired
@@ -27,25 +27,25 @@ public class DocumentServiceIntegrationTests {
 
 	@Test
 	public void findByValidPid() {
-		Optional<DocumentDTO> result = service.findByPid(VALID_PID);
+		Optional<DocumentEntity> result = service.findByPid(VALID_PID);
 		assertThat(result).isPresent();
 	}
 
 	@Test
 	public void findByInvalidPid() {
-		Optional<DocumentDTO> result = service.findByPid(INVALID_PID);
+		Optional<DocumentEntity> result = service.findByPid(INVALID_PID);
 		assertThat(result).isNotPresent();
 	}
 
 	@Test
 	public void findByValidParentPid() {
-		Stream<DocumentDTO> result = service.findByParentPid(VALID_PARENT_PID);
+		Stream<DocumentEntity> result = service.findAllByParentPid(VALID_PARENT_PID);
 		assertThat(result).size().isGreaterThan(0);
 	}
 
 	@Test
 	public void findByInvalidParentPid() {
-		Stream<DocumentDTO> result = service.findByParentPid(INVALID_PARENT_PID);
+		Stream<DocumentEntity> result = service.findAllByParentPid(INVALID_PARENT_PID);
 		assertThat(result).size().isEqualTo(0);
 	}
 }

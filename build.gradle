@@ -30,14 +30,6 @@ jacocoTestReport {
 
 check.dependsOn jacocoTestReport
 
-
-configurations {
-	developmentOnly
-	runtimeClasspath {
-		extendsFrom developmentOnly
-	}
-}
-
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-solr')
 	compile('org.springframework.boot:spring-boot-starter-web')
@@ -45,7 +37,6 @@ dependencies {
 	compile('de.digitalcollections.iiif:iiif-apis:0.3.3')
 	compile('org.modelmapper:modelmapper:2.2.0')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
 tasks.test {
