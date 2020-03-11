@@ -15,6 +15,11 @@ public class ManifestBuilder extends AbstractBuilder<ManifestBuilder,Manifest> {
         return new ManifestBuilder(document);
     }
 
+    public ManifestBuilder baseUrl(CharSequence baseUrl) {
+        setUrl(baseUrl,"/manifest");
+        return this;
+    }
+
     @Override
     protected ManifestBuilder getBuilder() {
         return this;

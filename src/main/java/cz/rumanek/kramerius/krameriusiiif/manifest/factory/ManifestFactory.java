@@ -3,6 +3,7 @@ package cz.rumanek.kramerius.krameriusiiif.manifest.factory;
 import cz.rumanek.kramerius.krameriusiiif.manifest.CanvasBuilder;
 import cz.rumanek.kramerius.krameriusiiif.manifest.ManifestBuilder;
 import cz.rumanek.kramerius.krameriusiiif.model.DocumentEntity;
+import de.digitalcollections.iiif.model.sharedcanvas.Canvas;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import de.digitalcollections.iiif.model.sharedcanvas.Sequence;
 
@@ -10,39 +11,38 @@ import java.util.stream.Stream;
 
 public class ManifestFactory {
 
-    CharSequence requestUrl;
+    CharSequence url;
     DocumentEntity parentDoc;
-    Stream<DocumentEntity> pages;
 
-    public ManifestFactory(CharSequence requestUrl, DocumentEntity parentDoc, Stream<DocumentEntity> pages) {
+    public ManifestFactory(CharSequence url, DocumentEntity parentDoc) {
         this.parentDoc = parentDoc;
-        this.requestUrl = requestUrl;
-        this.pages = pages;
+        this.url = url;
     }
 
-    public Manifest empty() {
+    public Manifest parent() {
         return  ManifestBuilder.of(parentDoc)
-                .setId(requestUrl)
+                .baseUrl(url)
                 .label()
                 .build();
     }
 
-    public Manifest imageSequence(CharSequence baseUrl, String iiifEndpointURL) {
-        return empty().addSequence(getImageSequence(baseUrl,iiifEndpointURL));
+    public Manifest imageSequence(Stream<DocumentEntity> pages, String imageBaseUrl) {
+        return parent().addSequence(getImageSequence(pages, imageBaseUrl));
     }
 
-    private Sequence getImageSequence(CharSequence baseUrl, String iiifEndpointURL) {
-
+    private Sequence getImageSequence(Stream<DocumentEntity> pages, String imageBaseUrl) {
         Sequence sequence = new Sequence(null);
-        pages.map(page -> CanvasBuilder.of(page)
-                            .baseUrl(baseUrl)
-                            .label()
-                            .resolution()
-                            .imageUrl(iiifEndpointURL)
-                            .build()
-                    )
-                    .forEachOrdered(sequence::addCanvas);
+        pages.map(page -> buildImageCanvas(page, imageBaseUrl)).forEachOrdered(sequence::addCanvas);
         return sequence;
+    }
+
+    private Canvas buildImageCanvas(DocumentEntity page, String imageBaseUrl) {
+        return CanvasBuilder.of(page)
+                .baseUrl(url)
+                .label()
+                .resolution()
+                .imageBaseUrl(imageBaseUrl)
+                .build();
     }
 
 }

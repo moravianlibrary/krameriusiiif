@@ -7,7 +7,7 @@ import de.digitalcollections.iiif.model.sharedcanvas.Canvas;
 public class CanvasBuilder extends AbstractBuilder<CanvasBuilder,Canvas> {
 
     private Canvas canvas;
-    String imageUrl;
+    String imageBaseUrl;
     boolean resolution;
     boolean canvasRatio;
     Integer canvasWidth = 3000;
@@ -27,8 +27,8 @@ public class CanvasBuilder extends AbstractBuilder<CanvasBuilder,Canvas> {
     }
     //TODO add builder phases 1,2,3...
 
-    public CanvasBuilder imageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public CanvasBuilder imageBaseUrl(String imageBaseUrl) {
+        this.imageBaseUrl = imageBaseUrl;
         return this;
     }
 
@@ -70,8 +70,8 @@ public class CanvasBuilder extends AbstractBuilder<CanvasBuilder,Canvas> {
     }
 
     protected void addIIIFImage() {
-        if (imageUrl != null) {
-            canvas.addIIIFImage(imageUrl + document.getPid(), ImageApiProfile.LEVEL_ONE);
+        if (imageBaseUrl != null) {
+            canvas.addIIIFImage(imageBaseUrl + document.getPid(), ImageApiProfile.LEVEL_ONE);
         }
     }
 

@@ -54,20 +54,14 @@ public class ManifestController {
 
     @GetMapping(value = "{pid}/collection")
     public Collection collection(HttpServletRequest request, @PathVariable String pid) {
-        return new CollectionFactory(
-                request.getRequestURL(),
-                getDocument(pid),
-                getCollections(pid)
-        ).addChildCollections(baseUrl);
+        return new CollectionFactory(baseUrl, getDocument(pid))
+                .addChildCollections(getCollections(pid));
     }
 
     @GetMapping(value = "{pid}/manifest")
     public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
-        return new ManifestFactory(
-                    request.getRequestURL(),
-                    getDocument(pid),
-                    getPages(pid)
-        ).imageSequence(baseUrl, iiifEndpointURL);
+        return new ManifestFactory(baseUrl, getDocument(pid))
+                .imageSequence(getPages(pid), iiifEndpointURL);
     }
 
     private DocumentEntity getDocument(String pid) {

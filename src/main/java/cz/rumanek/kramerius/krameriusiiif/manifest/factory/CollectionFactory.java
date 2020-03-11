@@ -8,35 +8,33 @@ import java.util.stream.Stream;
 
 public class CollectionFactory {
 
-    CharSequence requestUrl;
+    CharSequence url;
     DocumentEntity parentDoc;
-    Stream<DocumentEntity> collectionItems;
 
-    public CollectionFactory(CharSequence requestUrl, DocumentEntity parentDoc, Stream<DocumentEntity> collectionItems) {
+    public CollectionFactory(CharSequence url, DocumentEntity parentDoc) {
         this.parentDoc = parentDoc;
-        this.requestUrl = requestUrl;
-        this.collectionItems = collectionItems;
+        this.url = url;
     }
 
     public Collection parent() {
-        return  CollectionBuilder.of(parentDoc)
-                .setId(requestUrl)
+        return buildCollection(parentDoc);
+    }
+
+    private Collection buildCollection(DocumentEntity documentEntity) {
+        return  CollectionBuilder.of(documentEntity)
+                .baseUrl(url)
                 .label()
                 .build();
     }
 
-    public Collection addChildCollections(CharSequence baseUrl) {
+    public Collection addChildCollections(Stream<DocumentEntity> documentEntityStream) {
         Collection parent = parent();
-        getSubCollections(baseUrl).forEachOrdered(parent::addCollection);
+        getSubCollections(documentEntityStream).forEachOrdered(parent::addCollection);
         return parent;
     }
 
-    private Stream<Collection> getSubCollections(CharSequence baseUrl) {
-        return collectionItems.map(doc ->
-                CollectionBuilder.of(doc)
-                        .baseUrl(baseUrl)
-                        .label()
-                        .build());
+    private Stream<Collection> getSubCollections(Stream<DocumentEntity> documentEntityStream) {
+        return documentEntityStream.map(this::buildCollection);
     }
 
 }
