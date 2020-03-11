@@ -75,8 +75,7 @@ public class RestTemplateIntegrationTests {
     @Test
     public void invalidManifestUuidTest() {
         ResponseEntity<Manifest> responseEntity = restTemplate.getForEntity(INVALID_MANIFEST_URL, Manifest.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isEqualTo(null);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
@@ -89,8 +88,7 @@ public class RestTemplateIntegrationTests {
     @Test
     public void invalidCollectionUuidTest() {
         ResponseEntity<Collection> responseEntity = restTemplate.getForEntity(INVALID_COLLECTION_URL, Collection.class);
-        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isEqualTo(null);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     private void compareResponseAndFileInResources(ResponseEntity<?> entity, String file) throws IOException {

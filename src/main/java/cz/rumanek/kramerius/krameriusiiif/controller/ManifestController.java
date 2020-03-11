@@ -1,22 +1,22 @@
 package cz.rumanek.kramerius.krameriusiiif.controller;
 
-import cz.rumanek.kramerius.krameriusiiif.manifest.CanvasBuilder;
-import cz.rumanek.kramerius.krameriusiiif.manifest.CollectionBuilder;
-import cz.rumanek.kramerius.krameriusiiif.manifest.ManifestBuilder;
+import cz.rumanek.kramerius.krameriusiiif.manifest.factory.CollectionFactory;
+import cz.rumanek.kramerius.krameriusiiif.manifest.factory.ManifestFactory;
 import cz.rumanek.kramerius.krameriusiiif.model.DocumentEntity;
 import cz.rumanek.kramerius.krameriusiiif.service.DocumentService;
 import de.digitalcollections.iiif.model.PropertyValue;
 import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
-import de.digitalcollections.iiif.model.sharedcanvas.Sequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 @RestController
 public class ManifestController {
@@ -37,7 +37,7 @@ public class ManifestController {
     }
 
     @GetMapping(value = "/")
-    public Collection home()  {
+    public Collection home() {
         Collection collection = new Collection(baseUrl);
         collection.setLabel(new PropertyValue("Vybrané kolekce"));
 
@@ -54,49 +54,35 @@ public class ManifestController {
 
     @GetMapping(value = "{pid}/collection")
     public Collection collection(HttpServletRequest request, @PathVariable String pid) {
-        Optional<DocumentEntity> parentDoc = documentService.findByPid(pid);
-        if (parentDoc.isPresent()) {
-            Collection parentCollection =
-                    CollectionBuilder.of(parentDoc.get())
-//***baseUrl instead  .setId(request.getRequestURL())
-                    .baseUrl(baseUrl)
-                    .label()
-                    .build();
-            documentService.getCollectionDocumentsFor(pid).map(doc->
-                    CollectionBuilder.of(doc)
-                    .baseUrl(baseUrl)
-                    .label()
-                    .build()).forEachOrdered(parentCollection::addCollection);
-            return parentCollection;
-        } else {
-            return null;
-        }
+        return new CollectionFactory(
+                request.getRequestURL(),
+                getDocument(pid),
+                getCollections(pid)
+        ).addChildCollections(baseUrl);
     }
 
     @GetMapping(value = "{pid}/manifest")
     public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
-        Optional<DocumentEntity> parentDoc = documentService.findByPid(pid);
-        if (parentDoc.isPresent()) {
-            Sequence sequence = new Sequence(null);
-            documentService.getPagesFor(pid)
-                    .map(page -> CanvasBuilder.of(page)
-                            .baseUrl(baseUrl)
-                            .label()
-                            .resolution()
-                            .imageUrl(iiifEndpointURL)
-  //***second resolution    .canvasRatio()
-                            .build()
-                    )
-                    .forEachOrdered(sequence::addCanvas);
-            return ManifestBuilder.of(parentDoc.get())
-                    .setId(request.getRequestURL())
-                    .label()
-                    .build()
-                    .addSequence(sequence);
-        }
-        else {
-            return null;
-        }
+        return new ManifestFactory(
+                    request.getRequestURL(),
+                    getDocument(pid),
+                    getPages(pid)
+        ).imageSequence(baseUrl, iiifEndpointURL);
     }
 
+    private DocumentEntity getDocument(String pid) {
+        return documentService.findByPid(pid).orElseThrow(ResourceNotFoundException::new);
+    }
+
+    private Stream<DocumentEntity> getPages(String pid) {
+        return documentService.getPagesFor(pid);
+    }
+
+    private Stream<DocumentEntity> getCollections(String pid) {
+        return documentService.getCollectionDocumentsFor(pid);
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public class ResourceNotFoundException extends RuntimeException {
+    }
 }
