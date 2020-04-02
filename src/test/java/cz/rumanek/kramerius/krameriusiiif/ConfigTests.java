@@ -11,12 +11,6 @@ import org.apache.solr.client.solrj.impl.XMLResponseParser;
 import org.apache.solr.client.solrj.request.RequestWriter;
 import org.apache.solr.client.solrj.request.json.JsonQueryRequest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.core.env.Environment;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -27,9 +21,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ConfigTests {
 
     @Test
@@ -50,8 +42,8 @@ public class ConfigTests {
 
     @Test
     public void solrConfigExternalServerTest() {
-        SolrConfig solrConfig = new SolrConfig(KRAMERIUS_SOLR_URL);
-        HttpSolrClient httpSolrClient = (HttpSolrClient) solrConfig.solrClient();
+        SolrConfig solrConfig = new SolrConfig(KRAMERIUS_SOLR_URL,"/search");
+        HttpSolrClient httpSolrClient = (HttpSolrClient) solrConfig.solrClientExternal();
         assertThat(httpSolrClient.getParser()).as("Validate response parser").isInstanceOf(XMLResponseParser.class);
         RequestWriter requestWriter = (RequestWriter) ReflectionTestUtils.getField(httpSolrClient,"requestWriter");
         assertThat(requestWriter.getPath(new JsonQueryRequest())).isEqualTo("/search");
@@ -59,32 +51,24 @@ public class ConfigTests {
 
     @Test
     public void solrConfigLocalServerTest() {
-        SolrConfig solrConfig = new SolrConfig("///");
-        HttpSolrClient httpSolrClient = (HttpSolrClient) solrConfig.solrClient();
+        SolrConfig solrConfig = new SolrConfig("///",null);
+        HttpSolrClient httpSolrClient = (HttpSolrClient) solrConfig.solrClientInternal();
         assertThat(httpSolrClient.getParser()).as("Validate response parser").isInstanceOf(BinaryResponseParser.class);
         RequestWriter requestWriter = (RequestWriter) ReflectionTestUtils.getField(httpSolrClient,"requestWriter");
         assertThat(requestWriter.getPath(new JsonQueryRequest())).isEqualTo("/select");
     }
 
-    @Mock
-    Environment env;
-
-    @InjectMocks
-    AppConfiguration appConfiguration;
-
-    static final String PRETTY_PRINT_ENV_PROPERTY = "kramerius.prettyprint";
-
     @Test
     public void iiifObjectMapperIndentTest() {
-        when(env.getProperty(Mockito.eq(PRETTY_PRINT_ENV_PROPERTY), Mockito.anyString())).thenReturn("YES");
-        IiifObjectMapper iiifObjectMapper = appConfiguration.iiifObjectMapper();
+        AppConfiguration appConfiguration = new AppConfiguration();
+        IiifObjectMapper iiifObjectMapper = appConfiguration.iiifObjectMapper(true);
         assertThat(iiifObjectMapper.isEnabled(SerializationFeature.INDENT_OUTPUT)).isTrue();
     }
 
     @Test
     public void iiifObjectMapperNoIndentTest() {
-        when(env.getProperty(Mockito.eq(PRETTY_PRINT_ENV_PROPERTY), Mockito.anyString())).thenReturn("NO");
-        IiifObjectMapper iiifObjectMapper = appConfiguration.iiifObjectMapper();
+        AppConfiguration appConfiguration = new AppConfiguration();
+        IiifObjectMapper iiifObjectMapper = appConfiguration.iiifObjectMapper(false);
         assertThat(iiifObjectMapper.isEnabled(SerializationFeature.INDENT_OUTPUT)).isFalse();
     }
 

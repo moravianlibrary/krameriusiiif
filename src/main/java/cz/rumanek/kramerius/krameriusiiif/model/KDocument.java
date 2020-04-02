@@ -7,18 +7,18 @@ import org.springframework.data.solr.core.mapping.SolrDocument;
 
 import java.util.List;
 
-/*
- * @SolDocument value "collection" adds collection/core name to path of SOLR request.
- * If not defined, name of class is used/added.
- * There seems to be no global override for this behavior.
- * Collection name is set in application.properties as "kramerius.solr.core"
- * Because this annotation cannot read using SPEL directly from application.properties with $ symbol
- * (like in "${kramerius.iiif.endpoint}"), value is transfered by "solrCollectionName" bean in AppConfiguration
- */
+import static cz.rumanek.kramerius.krameriusiiif.config.Constants.SOLR_COLLECTION_BEAN;
+
 /**
- * Defines fields to be retrieved form SOLR using "Spring Data Solr"
+ * Defines fields to be retrieved form SOLR using "Spring Data Solr"<br>
+ * <pre>
+ *{@literal @}SolDocument value "collection" adds collection/core name to path of SOLR request.
+ * If not defined, name of class is used/added.
+ * Collection name is set by <b>"kramerius.solr_core"</b> in application.properties
+ * and transferred from KrameriusConfig bean <b>"solr_collection"</b>
+ * </pre>
  */
-@SolrDocument(collection = "#{@getSolrCollectionName}")
+@SolrDocument(collection = SOLR_COLLECTION_BEAN)
 public final class KDocument {
 
     @Id

@@ -1,5 +1,8 @@
 package cz.rumanek.kramerius.krameriusiiif.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -10,11 +13,13 @@ import java.util.concurrent.Future;
 // Final class ensures type safety when casting on interface
 // such as Future etc. in streaming expressions
 public final class DocumentDTO implements DocumentEntity {
+
+    private Logger logger = LoggerFactory.getLogger(DocumentDTO.class);
     private String pid;
     private String label;
     private String model;
 
-    public Future<Info> info;
+    private Future<Info> info;
 
     @Override
     public String getPid() {
@@ -42,11 +47,11 @@ public final class DocumentDTO implements DocumentEntity {
         this.model = model;
     }
 
-    @Override
     public Info getInfo(){
         try {
             return info.get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (NullPointerException | InterruptedException | ExecutionException e) {
+            logger.error("Error retrieving image info. Not set?");
             return null;
         }
     }

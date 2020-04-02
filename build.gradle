@@ -32,7 +32,10 @@ check.dependsOn jacocoTestReport
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-solr')
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-web') {
+    	exclude module:("spring-boot-starter-jetty")
+		exclude module:("spring-boot-starter-undertow")
+	}
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('de.digitalcollections.iiif:iiif-apis:0.3.3')
 	compile('org.modelmapper:modelmapper:2.2.0')

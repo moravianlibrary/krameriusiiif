@@ -8,7 +8,7 @@ import de.digitalcollections.iiif.model.PropertyValue;
 import de.digitalcollections.iiif.model.sharedcanvas.Collection;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Stream;
+
+import static cz.rumanek.kramerius.krameriusiiif.config.Constants.IIIF_ENDPOINT;
+import static cz.rumanek.kramerius.krameriusiiif.config.Constants.SERVER_BASEURL;
 
 @RestController
 public class ManifestController {
@@ -27,13 +30,14 @@ public class ManifestController {
     private final String iiifEndpointURL;
     private final String baseUrl;
 
-    @Autowired
-    private DocumentService documentService;
+    private final DocumentService documentService;
 
-    public ManifestController(@Value("#{getImageEndpoint}") String iiifEndpointURL,
-                              @Value("#{getBaseUrl}") String baseUrl) {
+    public ManifestController(@Qualifier(IIIF_ENDPOINT) String iiifEndpointURL,
+                              @Qualifier(SERVER_BASEURL) String baseUrl,
+                              @Autowired DocumentService documentService) {
         this.iiifEndpointURL = iiifEndpointURL;
         this.baseUrl = baseUrl;
+        this.documentService = documentService;
     }
 
     @GetMapping(value = "/")

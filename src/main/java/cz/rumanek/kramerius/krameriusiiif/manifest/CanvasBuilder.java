@@ -7,11 +7,11 @@ import de.digitalcollections.iiif.model.sharedcanvas.Canvas;
 public class CanvasBuilder extends AbstractBuilder<CanvasBuilder,Canvas> {
 
     private Canvas canvas;
-    String imageBaseUrl;
-    boolean resolution;
-    boolean canvasRatio;
-    Integer canvasWidth = 3000;
-    Integer canvasHeight = 2000;
+    private String imageBaseUrl;
+    private boolean resolution;
+    private boolean canvasRatio;
+    private Integer canvasWidth = 3000;
+    private Integer canvasHeight = 2000;
 
     public CanvasBuilder (DocumentEntity document) {
         super(document,"canvas");

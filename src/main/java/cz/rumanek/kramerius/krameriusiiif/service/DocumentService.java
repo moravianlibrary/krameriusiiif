@@ -19,16 +19,17 @@ public class DocumentService {
 
     private final DocumentRepository repository;
     private final ImageInfoRepository imageRepository;
-
-    @Autowired
-    private MappingUtil mappingUtil;
+    private final MappingUtil mappingUtil;
 
     ExecutorService executor = Executors.newFixedThreadPool(20);
 
     @Autowired
-    public DocumentService(DocumentRepository repository, ImageInfoRepository imageInfoRepository) {
+    public DocumentService(DocumentRepository repository,
+                           ImageInfoRepository imageInfoRepository,
+                           MappingUtil mappingUtil) {
         this.repository = repository;
         this.imageRepository = imageInfoRepository;
+        this.mappingUtil = mappingUtil;
     }
 
     /**<pre>
