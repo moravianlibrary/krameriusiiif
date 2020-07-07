@@ -1,11 +1,15 @@
 package cz.rumanek.kramerius.krameriusiiif.repository;
 
 import cz.rumanek.kramerius.krameriusiiif.model.Info;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import static cz.rumanek.kramerius.krameriusiiif.config.Constants.IIIF_ENDPOINT_CLIENT;
 
 /**
  * URL of IIIF Image API is defined in application.properties as "kramerius.iiif.endpoint"
@@ -13,19 +17,20 @@ import org.springframework.web.client.RestTemplate;
 @Repository
 public class ImageInfoRepositoryImpl implements ImageInfoRepository {
 
-    @Value("${kramerius.iiif.endpoint}")
-    private String iiifEndpointUrl;
-
-    @Autowired
+    private Logger logger = LoggerFactory.getLogger(ImageInfoRepository.class);
     private RestTemplate restTemplate;
 
+    public ImageInfoRepositoryImpl(@Qualifier(IIIF_ENDPOINT_CLIENT) RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     @Override
-    public Info get(String pid) {
+    public Info getInfo(String pid) {
         try {
-            return restTemplate.getForObject(iiifEndpointUrl + pid + "/info.json", Info.class);
-        } catch (HttpServerErrorException e) {
-            System.out.println("Request for invalid image PID => " + pid);
-            return null; //TODO-MR When Kramerius return 500. Shitty, but will be replaced by webflux?
+            return restTemplate.getForObject("/" + pid + "/info.json", Info.class);
+        } catch (HttpServerErrorException | HttpClientErrorException e) {
+            logger.error("Invalid request => " + pid + " => " + e.getStatusText() + " " + e.getStatusCode());
+            return null;
         }
     }
 }
