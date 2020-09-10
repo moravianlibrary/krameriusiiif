@@ -1,17 +1,25 @@
 package cz.rumanek.kramerius.krameriusiiif;
 
+import cz.rumanek.kramerius.krameriusiiif.config.FailFastSpringJUnit4Runner;
+import cz.rumanek.kramerius.krameriusiiif.config.TestContext;
 import cz.rumanek.kramerius.krameriusiiif.model.Info;
 import cz.rumanek.kramerius.krameriusiiif.repository.ImageInfoRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(FailFastSpringJUnit4Runner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+@ContextConfiguration(classes = TestContext.class)
+@TestExecutionListeners(DependencyInjectionTestExecutionListener.class)
 public class ImageRepositoryIntegrationTests {
 
     @Autowired
@@ -25,6 +33,8 @@ public class ImageRepositoryIntegrationTests {
     public void validImagePidTest(){
         Info imageInfo = imageRepository.getInfo(VALID_IMAGE_PID);
         assertThat(imageInfo).isNotNull();
+        assertThat(imageInfo.getHeight()).isGreaterThan(0);
+        assertThat(imageInfo.getWidth()).isGreaterThan(0);
     }
 
     @Test

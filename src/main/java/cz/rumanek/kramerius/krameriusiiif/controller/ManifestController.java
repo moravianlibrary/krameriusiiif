@@ -49,9 +49,9 @@ public class ManifestController {
         manifest.setLabel(new PropertyValue("test manifest"));
         collection.addManifest(manifest);
 
-        Collection collection1 = new Collection(baseUrl + "uuid:5a2dd690-54b9-11de-8bcd-000d606f5dc6/collection");
-        collection1.setLabel(new PropertyValue("Davidova houpačka"));
-        collection.addCollection(collection1);
+        Collection subCollection = new Collection(baseUrl + "uuid:5a2dd690-54b9-11de-8bcd-000d606f5dc6/collection");
+        subCollection.setLabel(new PropertyValue("Davidova houpačka"));
+        collection.addCollection(subCollection);
 
         return collection;
     }

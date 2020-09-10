@@ -50,12 +50,12 @@ public class ServerProperties {
         this.prettyPrint = prettyPrint;
 
         logger.info("Configuration properties loaded...");
-        logger.info("Server URL: " + this.serverUrl);
-        logger.info("IIIF Endpoint: " + this.iiifEndpoint);
-        logger.info("SOLR Endpoint: " + this.solrEndpoint);
-        logger.info("SOLR Core: " + this.solrCore);
-        logger.info("SOLR Handler: " + (this.solrHandler == null ? "*default* (/select)": this.solrHandler));
-        logger.info("Indent output: " + (this.prettyPrint == null ? "*default* (false)": this.prettyPrint));
+        logger.debug("Server URL: " + this.serverUrl);
+        logger.debug("IIIF Endpoint: " + this.iiifEndpoint);
+        logger.debug("SOLR Endpoint: " + this.solrEndpoint);
+        logger.debug("SOLR Core: " + this.solrCore);
+        logger.debug("SOLR Handler: " + (this.solrHandler == null ? "*default* (/select)": this.solrHandler));
+        logger.debug("Indent output: " + (this.prettyPrint == null ? "*default* (false)": this.prettyPrint));
     }
 
     @Bean(IIIF_ENDPOINT)
