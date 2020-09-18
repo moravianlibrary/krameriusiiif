@@ -17,4 +17,12 @@ public final class Info {
     public Integer getHeight() {
         return height;
     }
+
+    @Override
+    public String toString() {
+        return "Info{" +
+                "width=" + width +
+                ", height=" + height +
+                '}';
+    }
 }

@@ -12,8 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.web.client.HttpClientErrorException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @RunWith(FailFastSpringJUnit4Runner.class)
 @SpringBootTest
@@ -27,10 +29,9 @@ public class ImageRepositoryIntegrationTests {
     static final String VALID_IMAGE_PID = "uuid:c3dc5a1d-32d8-42fe-9cc4-b4aa38b6a3dd";
     static final String FORBIDDEN_IMAGE_PID = "uuid:c1bc5a1d-32d8-42fe-9cc4-b4aa38b6a3dd";
     static final String INVALID_IMAGE_PID = "uuid:xxxxxxxx-32d8-42fe-9cc4-b4aa38b6a3dd";
-    static final String IMAGE_SERVER_URL = "https://kramerius.mzk.cz/search/iiif/";
 
     @Test
-    public void validImagePidTest(){
+    public void validImagePidTest() {
         Info imageInfo = imageRepository.getInfo(VALID_IMAGE_PID);
         assertThat(imageInfo).isNotNull();
         assertThat(imageInfo.getHeight()).isGreaterThan(0);
@@ -38,8 +39,22 @@ public class ImageRepositoryIntegrationTests {
     }
 
     @Test
-    public void invalidImagePidTest(){
-        Info imageInfo = imageRepository.getInfo(INVALID_IMAGE_PID);
+    public void invalidImagePidTest() {
+        assertThatThrownBy(() ->
+                imageRepository.getInfo(INVALID_IMAGE_PID)
+        ).isInstanceOf(HttpClientErrorException.class).hasMessageContaining("404");
+    }
+
+    @Test
+    public void forbiddenImagePidTest() {
+        assertThatThrownBy(() ->
+                imageRepository.getInfo(FORBIDDEN_IMAGE_PID)
+        ).isInstanceOf(HttpClientErrorException.class).hasMessageContaining("403");
+    }
+
+    @Test
+    public void badUrlFormatTest() {
+        Info imageInfo = imageRepository.getInfo("\\bad_url");
         assertThat(imageInfo).isNull();
     }
 }
