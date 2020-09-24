@@ -1,6 +1,7 @@
 package cz.rumanek.kramerius.krameriusiiif.manifest;
 
 import cz.rumanek.kramerius.krameriusiiif.model.DocumentEntity;
+import cz.rumanek.kramerius.krameriusiiif.model.Info;
 import de.digitalcollections.iiif.model.image.ImageApiProfile;
 import de.digitalcollections.iiif.model.sharedcanvas.Canvas;
 
@@ -64,8 +65,9 @@ public class CanvasBuilder extends AbstractBuilder<CanvasBuilder,Canvas> {
 
     protected void addResolution() {
         if (resolution) {
-            canvas.setWidth(document.getInfo().getWidth());
-            canvas.setHeight(document.getInfo().getHeight());
+            Info info =  document.getInfo();
+            canvas.setWidth(info.getWidth());
+            canvas.setHeight(info.getHeight());
         }
     }
 

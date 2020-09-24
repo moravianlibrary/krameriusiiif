@@ -48,15 +48,18 @@ public final class DocumentDTO implements DocumentEntity {
     }
 
     public Info getInfo() {
-        Info instance = null;
+        Info retrieved = null;
         try {
-            instance = info.get();
-        } catch (ExecutionException | InterruptedException e) {
-            logger.error("Error getting image info! " + e.getCause().getClass());
+            retrieved = info.get();
         }
-        if (instance != null) {
-            return instance;
-        } else {
+        catch (NullPointerException | ExecutionException | InterruptedException e) {
+            logger.error("Error getting image info! " + (e.getCause() != null ? e.getCause().getClass() : e));
+        }
+        if (retrieved != null) {
+            logger.trace(retrieved.toString());
+            return retrieved;
+        }
+        else {
             logger.trace("Info is null!");
             return new Info();
         }
