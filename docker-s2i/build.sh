@@ -4,4 +4,4 @@ if [ ! -f ./s2i ]; then
     sh ./get_s2i.sh
 fi
 docker build -t krameriusiiif-builder .
-./s2i build https://github.com/MartinRumanek/krameriusiiif.git krameriusiiif-builder martinrumanek/krameriusiiif
+./s2i build https://github.com/moravianlibrary/krameriusiiif.git krameriusiiif-builder moravianlibrary/krameriusiiif
