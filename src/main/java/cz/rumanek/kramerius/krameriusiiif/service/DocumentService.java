@@ -21,7 +21,7 @@ public class DocumentService {
     private final ImageInfoRepository imageRepository;
     private final MappingUtil mappingUtil;
 
-    ExecutorService executor = Executors.newFixedThreadPool(20);
+    ExecutorService executor = Executors.newCachedThreadPool();
 
     @Autowired
     public DocumentService(DocumentRepository repository,
@@ -47,7 +47,7 @@ public class DocumentService {
         Page<KDocument> documents = repository.findByParentPid(parentPid, PageRequest.of(0, 10000));
         return documents.get().parallel()
                 //TODO-MR first index is not correct when document is indexed in article
-                .filter(kDocument -> !kDocument.getPid().equals(parentPid))
+                .filter(kDocument -> !kDocument.getPid().equals(parentPid))  //dont filter out parent in future
                 .sorted(Comparator.comparing(KDocument::getRelsIndex))
                 .map(kDocument -> {
                     DocumentDTO dto = mappingUtil.mapFrom(kDocument);
@@ -62,13 +62,7 @@ public class DocumentService {
      */
     public Optional<DocumentEntity> findByPid(String pid) {
         Optional<KDocument> kDocument = repository.findByPid(pid);
-        if (kDocument.isPresent()) {
-            DocumentDTO dto = mappingUtil.mapFrom(kDocument.get());
-            tryAddImageInfoFor(dto);
-            return Optional.of(dto);
-        } else {
-            return Optional.empty();
-        }
+        return kDocument.map(mappingUtil::mapFrom);
     }
 
     /**
@@ -84,7 +78,7 @@ public class DocumentService {
         return findAllByParentPid(pid).filter(DocumentEntity::isPage);
     }
 
-    public Stream<DocumentEntity> getCollectionDocumentsFor(String pid) {
+    public Stream<DocumentEntity> getCollections(String pid) {
         return findAllByParentPid(pid).filter(document -> !document.isPage());
     }
 }

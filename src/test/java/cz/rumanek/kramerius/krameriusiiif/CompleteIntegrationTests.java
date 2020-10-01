@@ -5,6 +5,8 @@ import cz.rumanek.kramerius.krameriusiiif.config.FailFastSpringJUnit4Runner;
 import cz.rumanek.kramerius.krameriusiiif.config.TestContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +16,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -74,8 +77,15 @@ public class CompleteIntegrationTests {
         compareResponseToFile(result.getResponse(), ROOT_PAGE_FILE);
     }
 
+    static int iteration = 0;
     @Test
+    //@Repeat(150)
+    @Repeat(10)
+
     public void manifestTest() throws Exception {
+        Logger logger = LoggerFactory.getLogger(CompleteIntegrationTests.class);
+        long start = System.currentTimeMillis();
+        iteration++;
         MvcResult result = mockMvc.perform(get("/" + MANIFEST_URL))
                 //.andDo(print())
                 .andExpect(status().isOk())
@@ -88,6 +98,7 @@ public class CompleteIntegrationTests {
                 .andReturn();
 
         compareResponseToFile(result.getResponse(), MANIFEST_FILE);
+        logger.info("Manifest test - iteration" + iteration + " " + (System.currentTimeMillis() - start));
     }
 
     @Test

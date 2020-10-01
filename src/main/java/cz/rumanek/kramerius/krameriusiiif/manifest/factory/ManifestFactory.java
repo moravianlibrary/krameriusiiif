@@ -7,12 +7,19 @@ import de.digitalcollections.iiif.model.sharedcanvas.Canvas;
 import de.digitalcollections.iiif.model.sharedcanvas.Manifest;
 import de.digitalcollections.iiif.model.sharedcanvas.Sequence;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ManifestFactory {
 
     CharSequence url;
     DocumentEntity parentDoc;
+    ForkJoinPool forkJoinPool = new ForkJoinPool(50);
 
     public ManifestFactory(CharSequence url, DocumentEntity parentDoc) {
         this.parentDoc = parentDoc;
@@ -20,7 +27,7 @@ public class ManifestFactory {
     }
 
     public Manifest parent() {
-        return  ManifestBuilder.of(parentDoc)
+        return ManifestBuilder.of(parentDoc)
                 .baseUrl(url)
                 .label()
                 .build();
@@ -31,8 +38,15 @@ public class ManifestFactory {
     }
 
     private Sequence getImageSequence(Stream<DocumentEntity> pages, String imageBaseUrl) {
-        Sequence sequence = new Sequence(null);
-        pages.map(page -> buildImageCanvas(page, imageBaseUrl)).forEachOrdered(sequence::addCanvas);
+        final Sequence sequence = new Sequence(null);
+        List<Canvas> canvases = new ArrayList<>(50);
+        try {
+            CompletableFuture.runAsync((() ->
+            canvases.addAll(pages.map(page -> buildImageCanvas(page, imageBaseUrl)).collect(Collectors.toList()))), forkJoinPool).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        sequence.setCanvases(canvases);
         return sequence;
     }
 

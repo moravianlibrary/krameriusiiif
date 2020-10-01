@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static cz.rumanek.kramerius.krameriusiiif.config.Constants.IIIF_ENDPOINT;
 import static cz.rumanek.kramerius.krameriusiiif.config.Constants.SERVER_BASEURL;
@@ -59,28 +60,21 @@ public class ManifestController {
     @GetMapping(value = "{pid}/collection")
     public Collection collection(HttpServletRequest request, @PathVariable String pid) {
         return new CollectionFactory(baseUrl, getDocument(pid))
-                .addChildCollections(getCollections(pid));
+                .addChildCollections(documentService.getCollections(pid));
     }
 
     @GetMapping(value = "{pid}/manifest")
     public Manifest manifest(HttpServletRequest request, @PathVariable String pid) {
+        List<DocumentEntity> pages = documentService.getPagesFor(pid).collect(Collectors.toList());//fetch pages in advance
         return new ManifestFactory(baseUrl, getDocument(pid))
-                .imageSequence(getPages(pid), iiifEndpointURL);
+                .imageSequence(pages.parallelStream(), iiifEndpointURL);
     }
 
     private DocumentEntity getDocument(String pid) {
         return documentService.findByPid(pid).orElseThrow(ResourceNotFoundException::new);
     }
 
-    private Stream<DocumentEntity> getPages(String pid) {
-        return documentService.getPagesFor(pid);
-    }
-
-    private Stream<DocumentEntity> getCollections(String pid) {
-        return documentService.getCollectionDocumentsFor(pid);
-    }
-
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public class ResourceNotFoundException extends RuntimeException {
+    public static class ResourceNotFoundException extends RuntimeException {
     }
 }
