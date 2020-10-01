@@ -1,6 +1,6 @@
 version: "2"
 services:
   krameriusiiif:
-    image: martinrumanek/krameriusiiif
+    image: moravianlibrary/krameriusiiif
     ports:
       - "8080:8080"
